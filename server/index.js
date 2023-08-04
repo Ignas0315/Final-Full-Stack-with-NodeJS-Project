@@ -8,10 +8,12 @@ server.use(cors());
 
 const adminRouter = require('./routes/admin');
 const eventsRouter = require('./routes/events');
+const loginRouter = require('./routes/login');
 
 const PORT = process.env.PORT || 8080;
 
 server.use('/', adminRouter);
 server.use('/', eventsRouter);
+server.use('/', loginRouter);
 
 server.listen(PORT, () => console.log(`Server is running on PORT: ${PORT}`));
