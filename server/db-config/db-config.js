@@ -9,6 +9,7 @@ const DB_CONFIG = {
     enableKeepAlive: true,
     keepAliveInitialDelay: 0,
     namedPlaceholders: true,
+    dateStrings: true,
 };
 
 module.exports = DB_CONFIG;
