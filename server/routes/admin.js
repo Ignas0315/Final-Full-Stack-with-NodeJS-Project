@@ -61,6 +61,87 @@ router.get('/admin/:id', async (req, res) => {
     }
 });
 
+router.delete('/admin/:id', async (req, res) => {
+    let adminIdPayload = req.params;
+
+    try {
+        adminIdPayload = await adminIdSchema.validateAsync(adminIdPayload);
+    } catch (error) {
+        return res.status(400).send({ error: error.message }).end();
+    }
+
+    if (adminIdPayload.id < 0 || typeof adminIdPayload.id !== 'number') {
+        return res.status(404).send(`Provided id of ${adminIdPayload.id} is invalid`).end();
+    }
+
+    try {
+        const [idCheck] = await pool.execute(
+            `
+        SELECT * FROM final.admin WHERE id=(?)`,
+            [adminIdPayload.id]
+        );
+
+        if (idCheck.length < 1) {
+            return res.status(404).send(`Admin with id=${adminIdPayload.id} not found`);
+        }
+    } catch (error) {
+        res.status(500).send(error).end();
+        return console.error(error);
+    }
+});
+
+router.patch('/admin/:id', async (req, res) => {
+    let adminIdPayload = req.params;
+    let dataPayload = req.body;
+
+    try {
+        dataPayload = await adminRegistrationSchema.validateAsync(dataPayload);
+    } catch (error) {
+        return res.status(400).send({ error: error.message });
+    }
+
+    try {
+        adminIdPayload = await adminIdSchema.validateAsync(adminIdPayload);
+    } catch (error) {
+        return res.status(400).send({ error: error.message }).end();
+    }
+
+    if (adminIdPayload.id < 0 || typeof adminIdPayload.id !== 'number') {
+        return res.status(404).send(`Provided id of ${adminIdPayload.id} is invalid`).end();
+    }
+
+    try {
+        const [idCheck] = await pool.execute(
+            `
+        SELECT * FROM final.admin WHERE id=(?)`,
+            [adminIdPayload.id]
+        );
+
+        if (idCheck.length < 1) {
+            return res.status(404).send(`Admin with id=${adminIdPayload.id} not found`);
+        }
+
+        const encryptedPassword = await bcrypt.hashSync(dataPayload.password, 10);
+
+        await pool.execute(
+            `
+        UPDATE final.admin SET email = ?, password = ?, first_name=?, last_name=? WHERE id = ?`,
+            [
+                dataPayload.email,
+                encryptedPassword,
+                dataPayload.first_name,
+                dataPayload.last_name,
+                adminIdPayload.id,
+            ]
+        );
+
+        return res.status(201).send(`User with id:${adminIdPayload.id} was updated`);
+    } catch (error) {
+        res.status(500).send(error).end();
+        return console.error(error);
+    }
+});
+
 router.post('/admin/register', async (req, res) => {
     let newAdminPayload = req.body;
 
