@@ -84,6 +84,14 @@ router.delete('/admin/:id', async (req, res) => {
         if (idCheck.length < 1) {
             return res.status(404).send(`Admin with id=${adminIdPayload.id} not found`);
         }
+
+        await pool.execute(
+            `
+            DELETE FROM final.admin WHERE id = (?)`,
+            [adminIdPayload.id]
+        );
+
+        return res.status(202).send(`Admin with id=${adminIdPayload.id} was deleted`);
     } catch (error) {
         res.status(500).send(error).end();
         return console.error(error);
@@ -135,7 +143,7 @@ router.patch('/admin/:id', async (req, res) => {
             ]
         );
 
-        return res.status(201).send(`User with id:${adminIdPayload.id} was updated`);
+        return res.status(201).send(`Admin with id:${adminIdPayload.id} was updated`);
     } catch (error) {
         res.status(500).send(error).end();
         return console.error(error);
