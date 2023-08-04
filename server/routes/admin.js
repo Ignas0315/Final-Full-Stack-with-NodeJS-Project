@@ -15,6 +15,52 @@ const adminRegistrationSchema = joi.object({
     last_name: joi.string().trim().required(),
 });
 
+const adminIdSchema = joi.object({
+    id: joi.number().integer().required(),
+});
+
+router.get('/admin', async (_, res) => {
+    try {
+        const [admins] = await pool.execute(`
+        SELECT * FROM final.admin`);
+
+        return res.status(200).send(admins).end();
+    } catch (error) {
+        res.status(500).send(error).end();
+    }
+});
+
+router.get('/admin/:id', async (req, res) => {
+    let adminIdPayload = req.params;
+
+    try {
+        adminIdPayload = await adminIdSchema.validateAsync(adminIdPayload);
+    } catch (error) {
+        return res.status(400).send({ error: error.message }).end();
+    }
+
+    if (adminIdPayload.id < 0 || typeof adminIdPayload.id !== 'number') {
+        return res.status(404).send(`Provided id of ${adminIdPayload.id} is invalid`).end();
+    }
+
+    try {
+        const [admin] = await pool.execute(
+            `
+        SELECT * FROM final.admin WHERE id=(?)`,
+            [adminIdPayload.id]
+        );
+
+        if (admin.length < 1) {
+            return res.status(404).send(`Admin with id=${adminIdPayload.id} not found`);
+        }
+
+        return res.status(200).send(admin).end();
+    } catch (error) {
+        res.status(500).send(error).end();
+        return console.error(error);
+    }
+});
+
 router.post('/admin/register', async (req, res) => {
     let newAdminPayload = req.body;
 
@@ -51,21 +97,3 @@ router.post('/admin/register', async (req, res) => {
 });
 
 module.exports = router;
-
-// const regSchema = joi.object({
-//     userName: joi.string().required().min(4),
-//     email: joi.string().email().required(),
-//     password: joi.string().min(4).required(),
-//   });
-//   const loginSchema = joi.object({
-//     email: joi.string().email().required(),
-//     password: joi.string().min(4).required(),
-//   });
-//   // REGISTER
-//   router.post('/register', async (req, res) => {
-//     const { user_name: userName, email, password } = req.body;
-//     try {
-//       await regSchema.validateAsync({ userName, email, password });
-//     } catch (err) {
-//       return res.status(400).json(err);
-//     }
