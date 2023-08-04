@@ -1,0 +1,71 @@
+const express = require('express');
+const joi = require('joi');
+const mysql = require('mysql2/promise');
+const DB_CONFIG = require('./../db-config/db-config');
+const bcrypt = require('bcrypt');
+
+const router = express.Router();
+
+const pool = mysql.createPool(DB_CONFIG);
+
+const adminRegistrationSchema = joi.object({
+    email: joi.string().email().trim().lowercase().required(),
+    password: joi.string().min(8).required(),
+    first_name: joi.string().trim().required(),
+    last_name: joi.string().trim().required(),
+});
+
+router.post('/admin/register', async (req, res) => {
+    let newAdminPayload = req.body;
+
+    try {
+        newAdminPayload = await adminRegistrationSchema.validateAsync(newAdminPayload);
+    } catch (error) {
+        return res.status(400).send({ error: error.message });
+    }
+
+    try {
+        const encryptedPassword = await bcrypt.hashSync(newAdminPayload.password, 10);
+        const [duplicateCheck] = await pool.execute(`
+            SELECT * FROM final.admin WHERE email="${newAdminPayload.email}"`);
+
+        if (duplicateCheck.length > 0) {
+            return res.status(400).send({ err: 'User already exists. Please try different email' });
+        }
+        await pool.execute(
+            `
+            INSERT INTO final.admin (email,password,first_name,last_name) VALUES (?,?,?,?)`,
+            [
+                newAdminPayload.email,
+                encryptedPassword,
+                newAdminPayload.first_name,
+                newAdminPayload.last_name,
+            ]
+        );
+
+        return res.status(201).send({ message: 'Registered' }).end();
+    } catch (error) {
+        res.status(500).send(error).end();
+        return console.error(error);
+    }
+});
+
+module.exports = router;
+
+// const regSchema = joi.object({
+//     userName: joi.string().required().min(4),
+//     email: joi.string().email().required(),
+//     password: joi.string().min(4).required(),
+//   });
+//   const loginSchema = joi.object({
+//     email: joi.string().email().required(),
+//     password: joi.string().min(4).required(),
+//   });
+//   // REGISTER
+//   router.post('/register', async (req, res) => {
+//     const { user_name: userName, email, password } = req.body;
+//     try {
+//       await regSchema.validateAsync({ userName, email, password });
+//     } catch (err) {
+//       return res.status(400).json(err);
+//     }
