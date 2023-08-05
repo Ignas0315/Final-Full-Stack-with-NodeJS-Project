@@ -2,21 +2,27 @@
 
 ## Login
 
+`POST /login`
+
+### Response
+
 ## Get list of Things
 
 ### Request
 
 `GET /thing/`
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
-
-### Response
+### Response Example
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Date: Sat, 05 Aug 2023 16:52:30 GMT
     Status: 200 OK
-    Connection: close
+    Connection: keep-alive
     Content-Type: application/json
-    Content-Length: 2
+    Content-Length: 169
 
-    []
+    [
+        {
+            "token": "eyJhbGciOi..."
+        }
+    ]
