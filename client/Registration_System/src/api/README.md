@@ -2,15 +2,9 @@
 
 ## Login
 
-`POST /login`
-
-### Response
-
-## Get list of Things
-
 ### Request
 
-`GET /thing/`
+`POST /login`
 
 ### Response Example
 
