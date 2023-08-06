@@ -45,12 +45,14 @@ const Login = () => {
                 console.log(res);
                 alert('Login successfull');
 
+                console.log(res.data);
+
                 localStorage.setItem('token', res.data.token);
+
+                window.document.cookie = `id=${res.data.id}`;
 
                 navigate('/home');
             });
-
-            console.log(res);
 
             if (res.err) throw new Error(res.err);
 
