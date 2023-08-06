@@ -4,6 +4,7 @@ import { routes } from './routes';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { themeSettings } from './themes';
+import { useSelector } from 'react-redux';
 
 // const App = () => {
 //     return <></>;

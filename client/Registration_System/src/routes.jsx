@@ -4,16 +4,16 @@ import Login from './pages/Login/Login';
 
 export const routes = createBrowserRouter([
     {
-        path: '/',
+        path: '/login',
         element: <Login />,
     },
     {
-        path: '/home',
+        path: '/',
         element: <Home />,
         children: [
             {
-                path: '/home/admins',
-                element: <Login />,
+                path: '/home',
+                element: <Home />,
             },
         ],
     },
