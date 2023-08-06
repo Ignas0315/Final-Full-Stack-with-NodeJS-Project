@@ -22,7 +22,12 @@ import {
     Home,
     MenuOpenOutlined,
     PersonOutlineOutlined,
+    PowerSettingsNew,
+    SettingsOutlined,
 } from '@mui/icons-material';
+import { loggedAdmin } from '../../assets/loggedAdmin';
+import { getAdminById } from '../../api/admin-api';
+import { getCookieValue } from '../../assets/getCookieValue';
 
 const sidebarItems = [
     {
@@ -56,11 +61,26 @@ export const Sidebar = ({ drawerWidth, sidebarState, setSidebarState, mobileCons
     const { pathname } = useLocation();
     const [active, setActive] = useState('');
     const navigate = useNavigate();
+    const [admin, setAdmin] = useState(null);
+
+    const getCurrentAdmin = async () => {
+        const response = await getAdminById(getCookieValue('id'));
+        setAdmin(response);
+    };
 
     useEffect(() => {
         setActive(pathname.substring(1));
     }, [pathname]);
-    return (
+
+    useEffect(() => {
+        getCurrentAdmin();
+    }, []);
+
+    console.log(admin);
+
+    return admin === null ? (
+        <div>Loading...</div>
+    ) : (
         <Box component='nav'>
             {sidebarState && (
                 <Drawer
@@ -144,6 +164,35 @@ export const Sidebar = ({ drawerWidth, sidebarState, setSidebarState, mobileCons
                                 );
                             })}
                         </List>
+                    </Box>
+
+                    <Box position='absolute' bottom='2rem'>
+                        <Divider />
+                        <FlexBetween textTransform='none' gap='1rem' m='1.5rem 2rem 0 3rem'>
+                            <Box
+                                position='relative'
+                                display='flex'
+                                flexDirection='column'
+                                justifyContent='center'
+                                component='div'
+                                height='2.5rem'
+                                width='2.5rem'
+                                borderRadius='50%'
+                                backgroundColor='#14b8a6'
+                                margin='0 auto'
+                                textAlign='center'
+                            >
+                                {`${admin.data[0].first_name.slice(
+                                    0,
+                                    1
+                                )}${admin.data[0].last_name.slice(0, 1)}`}
+                            </Box>
+                            <Box>
+                                <Typography fontSize='12px'>{admin.data[0].first_name}</Typography>
+                                <Typography fontSize='12px'>{admin.data[0].last_name}</Typography>
+                            </Box>
+                            <PowerSettingsNew />
+                        </FlexBetween>
                     </Box>
                 </Drawer>
             )}

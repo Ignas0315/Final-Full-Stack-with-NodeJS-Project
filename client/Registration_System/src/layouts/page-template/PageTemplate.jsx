@@ -12,7 +12,6 @@ const PageTemplate = () => {
     const [sidebarState, setSidebarState] = useState(true);
     return (
         <Box display={mobileConstraint ? 'flex' : 'block'} width='100%' height='100%'>
-            {console.log(mobileConstraint)}
             <Sidebar
                 mobileConstraint={mobileConstraint}
                 drawerWidth='250px'

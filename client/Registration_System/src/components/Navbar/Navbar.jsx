@@ -1,4 +1,4 @@
-import { AppBar, IconButton, InputBase, Toolbar, useTheme } from '@mui/material';
+import { AppBar, Button, IconButton, InputBase, Toolbar, useTheme } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import FlexBetween from './../FlexBetween/FlexBetween';
@@ -13,10 +13,28 @@ import {
 } from '@mui/icons-material';
 import { setMode } from '../../state';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import { loggedAdmin } from '../../assets/loggedAdmin';
 
 export const Navbar = ({ sidebarState, setSidebarState }) => {
     const dispatch = useDispatch();
     const theme = useTheme();
+
+    // const [anchorEl, setAnchorEl] = useState();
+
+    // const isOpen = Boolean(anchorEl);
+    // const handleClick = (event) => setAnchorEl(event.currentTarget);
+    // const handleClose = () => setAnchorEl(null);
+
+    // const [admin, setAdmin] = useState();
+
+    // const getCurrentAdmin = async () => {
+    //     const current = await loggedAdmin();
+    //     setAdmin(current);
+    // };
+
+    // useEffect(() => {
+    //     getCurrentAdmin();
+    // }, []);
 
     return (
         <AppBar
@@ -71,6 +89,21 @@ export const Navbar = ({ sidebarState, setSidebarState }) => {
                             }}
                         />
                     </IconButton>
+                    {/* 
+                    <FlexBetween>
+                        <Button
+                            onClick={handleClick}
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                textTransform: 'none',
+                                gap: '1rem',
+                            }}
+                        >
+                            A
+                        </Button>
+                    </FlexBetween> */}
                 </FlexBetween>
             </Toolbar>
         </AppBar>

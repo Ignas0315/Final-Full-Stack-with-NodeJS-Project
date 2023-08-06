@@ -1,15 +1,15 @@
 import axios from 'axios';
 const baseURL = 'http://localhost:8080';
 
-export const getAllAdmins = () => axios.get(`${baseURL}/admin`);
+export const getAllAdmins = async () => await axios.get(`${baseURL}/admin`);
 
-export const getAdminById = (id) => axios.get(`${baseURL}/admin/${id}`);
+export const getAdminById = async (id) => axios.get(`${baseURL}/admin/${id}`);
 
-export const deleteAdmin = (id) => axios.delete(`${baseURL}/admin/${id}`);
+export const deleteAdmin = async (id) => await axios.delete(`${baseURL}/admin/${id}`);
 
-export const updateAdmin = (id) => axios.patch(`${baseURL}/admin/${id}`);
+export const updateAdmin = async (id) => await axios.patch(`${baseURL}/admin/${id}`);
 
-export const createNewAdmin = (body) => axios.post(`${baseURL}/admin/register`, body);
+export const createNewAdmin = async (body) => await axios.post(`${baseURL}/admin/register`, body);
 
 /*
 
