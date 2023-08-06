@@ -6,7 +6,7 @@ const invertColours = (colourTokens) => {
         const keys = Object.keys(val);
         const values = Object.values(val);
         const length = keys.length;
-        reversedObject = {};
+        const reversedObject = {};
         for (let i = 0; i < length; i++) {
             reversedObject[keys[i]] = values[length - 1 - 1];
         }
