@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
                 },
                 process.env.JWT_SECRET
             );
-            return res.status(200).send({ token });
+            return res.status(200).send({ id: loginData[0].id, token });
         }
     } catch (error) {
         return res.status(500).send({ error: 'Unexpected error' });
