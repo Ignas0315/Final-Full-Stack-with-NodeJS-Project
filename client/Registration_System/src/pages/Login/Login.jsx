@@ -23,7 +23,7 @@ const Copyright = () => {
     return (
         <Typography variant='body2' color='text.secondary' align='center'>
             {'Copyright © '}
-            <a href='https://github.com/Ignas0315'>Ignas Žakaitis</a>
+            <a href='https://github.com/Ignas0315'>Ignas Žakaitis </a>
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -38,20 +38,25 @@ const Login = () => {
         password: '',
     });
 
+    const [error, setError] = useState('');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await login(JSON.stringify(userInput)).then((res) => {
-                console.log(res);
-                alert('Login successfull');
+                if (res.status === 200) {
+                    alert('Login successfull');
 
-                console.log(res.data);
+                    console.log(res.data);
 
-                localStorage.setItem('token', res.data.token);
+                    localStorage.setItem('token', res.data.token);
 
-                window.document.cookie = `id=${res.data.id}`;
+                    window.document.cookie = `id=${res.data.id}`;
 
-                navigate('/home');
+                    navigate('/home');
+                } else {
+                    setError('Wrong Email or Password. Please try again.');
+                }
             });
 
             if (res.err) throw new Error(res.err);
@@ -99,7 +104,8 @@ const Login = () => {
                             <Typography component='h1' variant='h5'>
                                 Sign in
                             </Typography>
-                            <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 8 }}>
+                            <Typography sx={{ color: '#c50000', mt: 4 }}>{error}</Typography>
+                            <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 4 }}>
                                 <TextField
                                     margin='normal'
                                     required
