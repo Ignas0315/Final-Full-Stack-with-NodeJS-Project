@@ -40,6 +40,7 @@ export const themeSettings = (mode) => {
                       background: {
                           default: tokensDark.primary[600],
                           alt: tokensDark.primary[500],
+                          very: tokensDark.primary[600],
                       },
                   }
                 : {
@@ -61,6 +62,7 @@ export const themeSettings = (mode) => {
                       background: {
                           default: tokensDark.grey[0],
                           alt: tokensDark.grey[50],
+                          very: tokensDark.grey[500],
                       },
                   }),
         },

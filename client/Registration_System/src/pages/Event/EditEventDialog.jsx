@@ -12,7 +12,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const AddEventDialog = ({ open, onClose, onSave, loading }) => {
+const EditEventDialog = ({ open, onClose, onSave, loading }) => {
     const [name, setName] = useState('');
     const [date, setDate] = useState(new Date());
     const [description, setDescription] = useState('');
@@ -22,12 +22,12 @@ const AddEventDialog = ({ open, onClose, onSave, loading }) => {
 
     return (
         <Dialog open={open} maxWidth='sm' fullWidth onClose={!loading ? onClose : undefined}>
-            <DialogTitle>Add New Event</DialogTitle>
+            <DialogTitle>Edit Event</DialogTitle>
             <DialogContent>
                 <Stack pt={2} spacing={2}>
                     <TextField
                         fullWidth
-                        label='Name'
+                        label='name'
                         value={name}
                         disabled={loading}
                         onChange={(e) => setName(e.target.value)}
@@ -97,4 +97,4 @@ const AddEventDialog = ({ open, onClose, onSave, loading }) => {
     );
 };
 
-export default AddEventDialog;
+export default EditEventDialog;

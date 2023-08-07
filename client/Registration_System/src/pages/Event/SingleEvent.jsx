@@ -16,6 +16,9 @@ import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import Header from '../../components/Header/Header';
 import { getEventById, getEventParticipantsByEventId } from '../../api/events-api';
 import { useTheme } from '@emotion/react';
+import AddParticipantDialog from './RegisterDialog';
+import { registerNewParticipant } from '../../api/participants-api';
+import EditEventDialog from './EditEventDialog';
 
 const SingleEvent = () => {
     const theme = useTheme();
@@ -29,6 +32,8 @@ const SingleEvent = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const [isEventEditDialogOpen, setIsEditEventDialogOpen] = useState(false);
 
     const fetchEventData = async (id) => {
         setIsLoading(true);
@@ -64,6 +69,40 @@ const SingleEvent = () => {
         fetchEventData(id);
     }, [id]);
 
+    const onDialogClose = () => setIsDialogOpen(false);
+
+    const onEditDialogClose = () => setIsEditEventDialogOpen(false);
+
+    const handleAddParticipantEvent = async (body) => {
+        try {
+            const response = await registerNewParticipant({
+                first_name: body.firstName,
+                last_name: body.firstName,
+                email: body.email,
+                dob: body.dob,
+                event_id: id,
+            });
+
+            console.log(response);
+
+            setEventParticipants((prev) => [
+                ...prev,
+                {
+                    id: body.id,
+                    first_name: body.firstName,
+                    last_name: body.lastName,
+                    dob: new Date(body.dob).toISOString().substring(0, 10),
+                    email: body.email,
+                    age: body.age,
+                },
+            ]);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const participantTable = (participantData) => {
         return (
             <>
@@ -79,10 +118,22 @@ const SingleEvent = () => {
                     <TableCell align='center'>{participantData.dob}</TableCell>
                     <TableCell align='center'>{participantData.age}</TableCell>
                     <TableCell align='center'>
-                        <Button>Edit</Button>
+                        <Button
+                            sx={{
+                                backgroundColor: theme.palette.background.very,
+                            }}
+                        >
+                            Edit
+                        </Button>
                     </TableCell>
                     <TableCell align='center'>
-                        <Button>Delete</Button>
+                        <Button
+                            sx={{
+                                backgroundColor: theme.palette.background.very,
+                            }}
+                        >
+                            Delete
+                        </Button>
                     </TableCell>
                 </TableRow>
             </>
@@ -107,7 +158,7 @@ const SingleEvent = () => {
                             sx={{ mr: '0.5rem' }}
                             variant='contained'
                             size='medium'
-                            onClick={() => setIsDialogOpen(true)}
+                            onClick={() => setIsEditEventDialogOpen(true)}
                         >
                             Edit Event
                         </Button>
@@ -132,7 +183,7 @@ const SingleEvent = () => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell sx={{ fontWeight: 'bold' }} align='center'>
-                                        Visitor ID
+                                        Participant ID
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }} align='center'>
                                         First Name
@@ -160,6 +211,22 @@ const SingleEvent = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                )}
+                {isDialogOpen && (
+                    <AddParticipantDialog
+                        loading={isLoading}
+                        open={isDialogOpen}
+                        onClose={onDialogClose}
+                        onSave={handleAddParticipantEvent}
+                    />
+                )}
+                {isEventEditDialogOpen && (
+                    <EditEventDialog
+                        loading={isLoading}
+                        open={isEventEditDialogOpen}
+                        onClose={onEditDialogClose}
+                        onSave={handleAddParticipantEvent}
+                    />
                 )}
             </Box>
         </>
