@@ -18,47 +18,49 @@ const invertColours = (colourTokens) => {
 export const tokensLight = invertColours(tokensDark);
 
 export const themeSettings = (mode) => {
+    console.log(mode);
     return {
         palette: {
             mode: mode,
             ...(mode === 'dark'
                 ? {
                       primary: {
-                          ...tokensDark.indigo,
-                          main: tokensDark.indigo[400],
-                          light: tokensDark.indigo[400],
+                          ...tokensDark.primary,
+                          main: tokensDark.primary[400],
+                          light: tokensDark.primary[400],
                       },
                       secondary: {
-                          ...tokensDark.white,
-                          main: tokensDark.white[300],
+                          ...tokensDark.secondary,
+                          main: tokensDark.secondary[300],
                       },
                       neutral: {
-                          ...tokensDark.zinc,
-                          main: tokensDark.zinc[500],
+                          ...tokensDark.grey,
+                          main: tokensDark.grey[500],
                       },
                       background: {
-                          default: tokensDark.indigo[600],
-                          alt: tokensDark.indigo[500],
+                          default: tokensDark.primary[600],
+                          alt: tokensDark.primary[500],
                       },
                   }
                 : {
+                      // palette values for light mode
                       primary: {
-                          ...tokensLight.indigo,
-                          main: tokensDark.zinc[50],
-                          light: tokensDark.zinc[100],
+                          ...tokensLight.primary,
+                          main: tokensDark.grey[50],
+                          light: tokensDark.grey[100],
                       },
                       secondary: {
-                          ...tokensLight.white,
-                          main: tokensDark.white[600],
-                          light: tokensDark.white[700],
+                          ...tokensLight.secondary,
+                          main: tokensDark.secondary[600],
+                          light: tokensDark.secondary[700],
                       },
                       neutral: {
-                          ...tokensLight.zinc,
-                          main: tokensDark.zinc[500],
+                          ...tokensLight.grey,
+                          main: tokensDark.grey[500],
                       },
                       background: {
-                          default: tokensDark.zinc[0],
-                          alt: tokensDark.zinc[50],
+                          default: tokensDark.grey[0],
+                          alt: tokensDark.grey[50],
                       },
                   }),
         },

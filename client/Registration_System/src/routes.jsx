@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import PageTemplate from './layouts/page-template/PageTemplate';
@@ -15,6 +15,11 @@ export const routes = createBrowserRouter([
         path: '/',
         element: <PageTemplate />,
         children: [
+            {
+                path: '/',
+                element: <Navigate to='/home' replace />,
+            },
+
             {
                 path: '/home',
                 element: <Home />,
