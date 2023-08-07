@@ -18,7 +18,7 @@ const PageTemplate = () => {
                 sidebarState={sidebarState}
                 setSidebarState={setSidebarState}
             />
-            <Box>
+            <Box flexGrow={1}>
                 <Navbar sidebarState={sidebarState} setSidebarState={setSidebarState} />
                 <Outlet />
             </Box>

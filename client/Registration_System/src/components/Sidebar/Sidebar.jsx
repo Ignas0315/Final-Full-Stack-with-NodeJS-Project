@@ -76,8 +76,6 @@ export const Sidebar = ({ drawerWidth, sidebarState, setSidebarState, mobileCons
         getCurrentAdmin();
     }, []);
 
-    console.log(admin);
-
     return admin === null ? (
         <div>Loading...</div>
     ) : (
