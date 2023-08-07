@@ -2,7 +2,6 @@ const express = require('express');
 const joi = require('joi');
 const mysql = require('mysql2/promise');
 const DB_CONFIG = require('./../db-config/db-config');
-const bcrypt = require('bcrypt');
 
 const router = express.Router();
 
@@ -93,7 +92,7 @@ router.get('/events/:id', async (req, res) => {
         );
 
         if (event.length < 1) {
-            return res.status(404).send(`Admin with id=${eventsIdPayload.id} not found`);
+            return res.status(404).send(`Event with id=${eventsIdPayload.id} not found`);
         }
 
         return res.status(200).send(event).end();
