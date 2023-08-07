@@ -36,6 +36,14 @@ export const routes = createBrowserRouter([
                 path: '/admin',
                 element: <Admin />,
             },
+            {
+                path: '/events/:id',
+                element: <Admin />,
+            },
+            {
+                path: '/admin',
+                element: <Admin />,
+            },
         ],
     },
 ]);
