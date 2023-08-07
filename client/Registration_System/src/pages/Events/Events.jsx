@@ -1,18 +1,8 @@
-import {
-    Box,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Typography,
-    useTheme,
-} from '@mui/material';
+import { Box, Button, Card, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { createNewEvent, getAllEvents } from '../../api/events-api';
-import { StyledCardContainer } from './Events.styled';
 import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import AddEventDialog from './AddEventDialog';
 
@@ -60,7 +50,7 @@ const Events = () => {
                 ...prev,
                 {
                     name: body.name,
-                    date: new Date(body.date).getTime(),
+                    date: new Date(body.date).toISOString().substring(0, 10),
                     description: body.description,
                     city: body.city,
                     country: body.country,
@@ -83,11 +73,13 @@ const Events = () => {
         return (
             <>
                 <Card
+                    key={`${eventData.id}keyp`}
                     sx={{
                         backgroundImage: 'none',
                         backgroundColor: theme.palette.background.alt,
                         width: '100%',
                     }}
+                    onClick={() => navigate(`/event-page/${eventData.id}`)}
                 >
                     <CardMedia
                         component='img'
@@ -132,9 +124,23 @@ const Events = () => {
             <Box m='1.5rem 2.5rem'>
                 <FlexBetween>
                     <Header title='Events' subtitle='View and Manage Events' />
-                    <Button variant='contained' size='large' onClick={() => setIsDialogOpen(true)}>
-                        Add Event
-                    </Button>
+                    <Box>
+                        <Button
+                            sx={{ mr: '8px' }}
+                            variant='contained'
+                            size='medium'
+                            onClick={() => setIsDialogOpen(true)}
+                        >
+                            Add Event
+                        </Button>
+                        <Button
+                            variant='contained'
+                            size='medium'
+                            onClick={() => setIsDialogOpen(true)}
+                        >
+                            Delete Event
+                        </Button>
+                    </Box>
                 </FlexBetween>
                 {eventsList === null ? (
                     <Box>Loading...</Box>
@@ -149,7 +155,7 @@ const Events = () => {
                             width='100%'
                         >
                             {eventsList.map((event) => (
-                                <Card key={event.id}>{card(event)}</Card>
+                                <Card key={`${event.id}+${event.name}`}>{card(event)}</Card>
                             ))}
                         </Box>
                         {isDialogOpen && (

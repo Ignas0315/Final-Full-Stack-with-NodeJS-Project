@@ -5,6 +5,7 @@ import PageTemplate from './layouts/page-template/PageTemplate';
 import Events from './pages/Events/Events';
 import Participants from './pages/Participants/Participants';
 import Admin from './pages/Admin/Admin';
+import SingleEvent from './pages/Event/SingleEvent';
 
 export const routes = createBrowserRouter([
     {
@@ -37,8 +38,8 @@ export const routes = createBrowserRouter([
                 element: <Admin />,
             },
             {
-                path: '/events/:id',
-                element: <Admin />,
+                path: '/event-page/:id',
+                element: <SingleEvent />,
             },
             {
                 path: '/admin',
