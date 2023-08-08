@@ -11,7 +11,12 @@ export const deleteParticipant = (id) => axios.delete(`${baseURL}/participants/$
 
 export const getParticipantEvents = (id) => axios.get(`${baseURL}/participant-events/${id}`);
 
-export const updateParticipantDetails = (id, body) => axios.patch(`${baseURL}/events/${id}`, body);
+export const updateParticipantDetails = (id, body) =>
+    axios.patch(`${baseURL}/participants/${id}`, body, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 
 export const registerNewParticipant = (body) => axios.post(`${baseURL}/participants`, body);
 
