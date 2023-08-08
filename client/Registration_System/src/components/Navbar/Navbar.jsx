@@ -28,9 +28,11 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import { loggedAdmin } from '../../assets/loggedAdmin';
 import { getAdminById } from '../../api/admin-api';
 import { getCookieValue } from '../../assets/getCookieValue';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = ({ sidebarState, setSidebarState }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState();
@@ -48,6 +50,10 @@ export const Navbar = ({ sidebarState, setSidebarState }) => {
     useEffect(() => {
         getCurrentAdmin();
     }, []);
+
+    const handleLogout = () => {
+        navigate(`/login`);
+    };
 
     return admin === null ? (
         <LoopOutlined />
@@ -164,7 +170,7 @@ export const Navbar = ({ sidebarState, setSidebarState }) => {
                             onClose={handleClose}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                         >
-                            <MenuItem>Log Out</MenuItem>
+                            <MenuItem onClick={handleLogout}>Log Out</MenuItem>
                         </Menu>
                     </FlexBetween>
                 </FlexBetween>
