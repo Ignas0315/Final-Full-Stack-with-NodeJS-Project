@@ -76,6 +76,10 @@ export const Sidebar = ({ drawerWidth, sidebarState, setSidebarState, mobileCons
         getCurrentAdmin();
     }, []);
 
+    const handleLogout = () => {
+        navigate(`/login`);
+    };
+
     return admin === null ? (
         <div>Loading...</div>
     ) : (
@@ -189,7 +193,9 @@ export const Sidebar = ({ drawerWidth, sidebarState, setSidebarState, mobileCons
                                 <Typography fontSize='12px'>{admin.data[0].first_name}</Typography>
                                 <Typography fontSize='12px'>{admin.data[0].last_name}</Typography>
                             </Box>
-                            <PowerSettingsNew />
+                            <IconButton onClick={handleLogout}>
+                                <PowerSettingsNew />
+                            </IconButton>
                         </FlexBetween>
                     </Box>
                 </Drawer>
