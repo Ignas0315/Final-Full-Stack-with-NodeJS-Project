@@ -15,12 +15,16 @@ import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import Header from '../../components/Header/Header';
 import { getAllEvents } from '../../api/events-api';
 import { getAllParticipantsEntries, getUniqueParticipants } from '../../api/participants-api';
+import { getAllAdmins } from '../../api/admin-api';
+import HomeCard from './HomeCard';
+import { AppRegistration, Diversity1, LocalActivity, ManageAccounts } from '@mui/icons-material';
 
 const Home = () => {
     const theme = useTheme();
     const [eventsList, setEventsList] = useState([]);
     const [uniqueParticipants, setUniqueParticipants] = useState([]);
     const [totalRegistrations, setTotalRegistrations] = useState([]);
+    const [totalAdmins, setTotalAdmins] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const getEvents = async () => {
@@ -61,6 +65,18 @@ const Home = () => {
         }
     };
 
+    const loadTotalAdmins = async () => {
+        try {
+            setIsLoading(true);
+            const { data } = await getAllAdmins();
+            setTotalAdmins(data);
+        } catch (error) {
+            setIsLoading(false);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
         getEvents();
     }, []);
@@ -73,9 +89,9 @@ const Home = () => {
         getTotalRegistrations();
     }, []);
 
-    console.log(eventsList);
-    console.log(uniqueParticipants);
-    console.log(totalRegistrations);
+    useEffect(() => {
+        loadTotalAdmins();
+    }, []);
 
     return (
         <>
@@ -94,7 +110,32 @@ const Home = () => {
                                     rowGap='20px'
                                     columnGap='1.33%'
                                     width='100%'
-                                ></Box>
+                                >
+                                    <HomeCard
+                                        values={eventsList}
+                                        types='Events'
+                                        icon={<LocalActivity style={{ fontSize: 100 }} />}
+                                        link='/events'
+                                    />
+                                    <HomeCard
+                                        values={uniqueParticipants}
+                                        types='Unique Participants'
+                                        icon={<Diversity1 style={{ fontSize: 100 }} />}
+                                        link='/participants'
+                                    />
+                                    <HomeCard
+                                        values={totalRegistrations}
+                                        types='Registrations'
+                                        icon={<AppRegistration style={{ fontSize: 100 }} />}
+                                        link='/participants'
+                                    />
+                                    <HomeCard
+                                        values={totalAdmins}
+                                        types='Admins'
+                                        icon={<ManageAccounts style={{ fontSize: 100 }} />}
+                                        link='/admin'
+                                    />
+                                </Box>
                             </Box>
                         )}
                     </Box>

@@ -24,6 +24,7 @@ import {
     PersonOutlineOutlined,
     PowerSettingsNew,
     SettingsOutlined,
+    Storage,
 } from '@mui/icons-material';
 import { loggedAdmin } from '../../assets/loggedAdmin';
 import { getAdminById } from '../../api/admin-api';
@@ -45,6 +46,10 @@ const sidebarItems = [
     {
         text: 'Participants',
         icon: <PersonOutlineOutlined />,
+    },
+    {
+        text: 'Records',
+        icon: <Storage />,
     },
     {
         text: 'Administration',

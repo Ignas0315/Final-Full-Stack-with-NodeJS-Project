@@ -35,6 +35,10 @@ export const routes = createBrowserRouter([
                 element: <Participants />,
             },
             {
+                path: '/records',
+                element: <Participants />,
+            },
+            {
                 path: '/admin',
                 element: <Admin />,
             },
