@@ -83,8 +83,6 @@ const SingleEvent = () => {
                 event_id: id,
             });
 
-            console.log(response);
-
             setEventParticipants((prev) => [
                 ...prev,
                 {
@@ -144,7 +142,15 @@ const SingleEvent = () => {
         <>
             <Box m='1.5rem 2.5rem'>
                 <FlexBetween>
-                    <Header title={`${event.name}`} subtitle={`${event.city}, ${event.country}`} />
+                    <Box>
+                        <Header
+                            title={`${event.name}`}
+                            subtitle={`${event.city}, ${event.country}`}
+                        />
+                        <Typography
+                            sx={{ mt: '8px', fontSize: '12px', fontWeight: 'bold' }}
+                        >{`${event.date}`}</Typography>
+                    </Box>
                     <Box display='flex' justifyContent='space-between'>
                         <Button
                             sx={{ mr: '8px' }}
@@ -153,14 +159,6 @@ const SingleEvent = () => {
                             onClick={() => setIsDialogOpen(true)}
                         >
                             Register Participant
-                        </Button>
-                        <Button
-                            sx={{ mr: '0.5rem' }}
-                            variant='contained'
-                            size='medium'
-                            onClick={() => setIsEditEventDialogOpen(true)}
-                        >
-                            Edit Event
                         </Button>
                     </Box>
                 </FlexBetween>

@@ -6,6 +6,7 @@ import Events from './pages/Events/Events';
 import Participants from './pages/Participants/Participants';
 import Admin from './pages/Admin/Admin';
 import SingleEvent from './pages/Event/SingleEvent';
+import EventsManagement from './pages/EventsManagement/EventsManagement';
 
 export const routes = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/event-page/:id',
                 element: <SingleEvent />,
+            },
+            {
+                path: '/events/configuration',
+                element: <EventsManagement />,
             },
             {
                 path: '/admin',
