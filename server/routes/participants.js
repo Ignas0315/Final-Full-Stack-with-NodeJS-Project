@@ -24,7 +24,7 @@ router.get('/participants/unique', async (_, res) => {
     try {
         const [participants] = await pool.execute(`
 
-        SELECT DISTINCT(email), first_name, last_name, dob FROM final.participants`);
+        SELECT DISTINCT(email), first_name, last_name, dob, age FROM final.participants`);
 
         return res.status(200).send(participants).end();
     } catch (error) {
@@ -180,15 +180,17 @@ router.get('/participant-events/:id', async (req, res) => {
     try {
         const [participantEmail] = await pool.execute(
             `
-        SELECT participants.email WHERE id = (?)
+        SELECT email FROM final.participants WHERE id = (?)
         `,
             [participantIdPayload.id]
         );
 
+        console.log(participantEmail[0]);
+
         const [participantEventsByEmail] = await pool.execute(
             `
         SELECT DISTINCT(email), event_id FROM final.participants WHERE email=(?)`,
-            [participantEmail]
+            [participantEmail[0].email]
         );
 
         if (participantEventsByEmail.length < 1) {
