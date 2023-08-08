@@ -17,8 +17,12 @@ import Header from '../../components/Header/Header';
 import { getEventById, getEventParticipantsByEventId } from '../../api/events-api';
 import { useTheme } from '@emotion/react';
 import AddParticipantDialog from './RegisterDialog';
-import { registerNewParticipant } from '../../api/participants-api';
-import EditEventDialog from './EditEventDialog';
+import {
+    deleteParticipant,
+    registerNewParticipant,
+    updateParticipantDetails,
+} from '../../api/participants-api';
+import EditParticipantDialog from './EditParticipantDialog';
 
 const SingleEvent = () => {
     const theme = useTheme();
@@ -33,7 +37,9 @@ const SingleEvent = () => {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const [isEventEditDialogOpen, setIsEditEventDialogOpen] = useState(false);
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+    const [selectedRow, setSelectedRow] = useState('');
 
     const fetchEventData = async (id) => {
         setIsLoading(true);
@@ -71,13 +77,68 @@ const SingleEvent = () => {
 
     const onDialogClose = () => setIsDialogOpen(false);
 
-    const onEditDialogClose = () => setIsEditEventDialogOpen(false);
+    const handleEditDialogOpen = (id) => {
+        setIsEditDialogOpen(true);
+        setSelectedRow(id);
+    };
+
+    const onEditDialogClose = () => setIsEditDialogOpen(false);
+
+    const handleEditParticipant = async (body) => {
+        console.log('entered edit function');
+        try {
+            const response = await updateParticipantDetails(selectedRow, {
+                first_name: body.firstName,
+                last_name: body.lastName,
+                email: body.email,
+                dob: body.dob,
+                event_id: id,
+            });
+
+            let nextList = eventParticipants.map((x) => {
+                if (x.id === selectedRow) {
+                    return {
+                        id: selectedRow,
+                        first_name: body.firstName,
+                        last_name: body.lastName,
+                        dob: new Date(body.dob).toISOString().substring(0, 10),
+                        email: body.email,
+                        age: body.age,
+                    };
+                } else {
+                    return x;
+                }
+            });
+
+            console.log(nextList);
+
+            setEventParticipants(nextList);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleDeleteParticipant = async (id) => {
+        setIsLoading(true);
+
+        try {
+            await deleteParticipant(id);
+
+            setEventParticipants((prev) => prev.filter((participant) => participant.id !== id));
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const handleAddParticipantEvent = async (body) => {
         try {
             const response = await registerNewParticipant({
                 first_name: body.firstName,
-                last_name: body.firstName,
+                last_name: body.lastName,
                 email: body.email,
                 dob: body.dob,
                 event_id: id,
@@ -120,6 +181,7 @@ const SingleEvent = () => {
                             sx={{
                                 backgroundColor: theme.palette.background.very,
                             }}
+                            onClick={() => handleEditDialogOpen(participantData.id)}
                         >
                             Edit
                         </Button>
@@ -129,6 +191,7 @@ const SingleEvent = () => {
                             sx={{
                                 backgroundColor: theme.palette.background.very,
                             }}
+                            onClick={() => handleDeleteParticipant(participantData.id)}
                         >
                             Delete
                         </Button>
@@ -218,12 +281,13 @@ const SingleEvent = () => {
                         onSave={handleAddParticipantEvent}
                     />
                 )}
-                {isEventEditDialogOpen && (
-                    <EditEventDialog
+                {isEditDialogOpen && (
+                    <EditParticipantDialog
+                        selectedRow={selectedRow}
                         loading={isLoading}
-                        open={isEventEditDialogOpen}
+                        open={isEditDialogOpen}
                         onClose={onEditDialogClose}
-                        onSave={handleAddParticipantEvent}
+                        onSaveEdit={handleEditParticipant}
                     />
                 )}
             </Box>

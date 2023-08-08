@@ -19,11 +19,9 @@ const store = configureStore({
 setupListeners(store.dispatch);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={lt}>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </LocalizationProvider>
-    </React.StrictMode>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={lt}>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </LocalizationProvider>
 );

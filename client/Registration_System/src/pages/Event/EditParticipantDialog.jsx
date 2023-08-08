@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 
 import { DatePicker } from '@mui/x-date-pickers';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
+const EditParticipantDialog = ({ selectedRow, open, onClose, onSaveEdit, loading }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -34,9 +34,19 @@ const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
         setAge(calculateAge(value));
     };
 
+    const handleSave = () => {
+        onSaveEdit({
+            firstName,
+            lastName,
+            dob: dob.toISOString().substring(0, 10),
+            email,
+            age,
+        });
+    };
+
     return (
         <Dialog open={open} maxWidth='sm' fullWidth onClose={!loading ? onClose : undefined}>
-            <DialogTitle>Add New Participant</DialogTitle>
+            <DialogTitle>Edit participant ID: {selectedRow} details</DialogTitle>
             <DialogContent>
                 <Stack pt={2} spacing={2}>
                     <TextField
@@ -77,19 +87,7 @@ const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
                 >
                     Cancel
                 </Button>
-                <Button
-                    variant='contained'
-                    disabled={loading}
-                    onClick={() =>
-                        onSave({
-                            firstName,
-                            lastName,
-                            dob: dob.toISOString().substring(0, 10),
-                            email,
-                            age,
-                        })
-                    }
-                >
+                <Button variant='contained' disabled={loading} onClick={() => handleSave()}>
                     Save
                 </Button>
             </DialogActions>
@@ -97,4 +95,4 @@ const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
     );
 };
 
-export default AddParticipantDialog;
+export default EditParticipantDialog;
