@@ -91,10 +91,10 @@ router.post('/participants', async (req, res) => {
     }
 
     try {
-        await pool.execute(
+        const [data] = await pool.execute(
             `
         INSERT INTO final.participants (event_id, first_name, last_name, email, dob, age)
-        VALUES (?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?);
         `,
             [
                 registrationPayload.event_id,
@@ -106,12 +106,11 @@ router.post('/participants', async (req, res) => {
             ]
         );
 
-        console.log('aaa');
-
         return res
             .status(201)
             .send({
                 message: `Participant: '${registrationPayload.first_name} ${registrationPayload.last_name}' was added`,
+                data: data,
             })
             .end();
     } catch (error) {

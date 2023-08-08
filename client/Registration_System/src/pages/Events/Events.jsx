@@ -136,9 +136,9 @@ const Events = () => {
                         <Button
                             variant='contained'
                             size='medium'
-                            onClick={() => setIsDialogOpen(true)}
+                            onClick={() => navigate(`/events/configuration`)}
                         >
-                            Delete Event
+                            Configuration
                         </Button>
                     </Box>
                 </FlexBetween>
