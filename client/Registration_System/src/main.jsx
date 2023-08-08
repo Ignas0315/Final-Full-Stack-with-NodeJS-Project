@@ -4,12 +4,11 @@ import App from './App.jsx';
 import './index.css';
 import { configureStore } from '@reduxjs/toolkit';
 import globalSlice from './state/store.js';
-// import globalSlice from 'state';
 import { Provider } from 'react-redux';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import lt from 'date-fns/locale/de';
+import au from 'date-fns/locale/en-AU';
 
 const store = configureStore({
     reducer: {
@@ -19,7 +18,7 @@ const store = configureStore({
 setupListeners(store.dispatch);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={lt}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={au}>
         <Provider store={store}>
             <App />
         </Provider>

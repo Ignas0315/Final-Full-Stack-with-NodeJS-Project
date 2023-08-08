@@ -114,7 +114,7 @@ router.post('/events', async (req, res) => {
     try {
         const eventDate = newEventPayload.date.toLocaleString('lt-LT');
 
-        await pool.execute(
+        const data = await pool.execute(
             `
             INSERT INTO final.events (name,date,description,city,country,image) VALUES (?,?,?,?,?,?)`,
             [
@@ -131,13 +131,18 @@ router.post('/events', async (req, res) => {
 
         return res
             .status(201)
-            .send({ message: `Event '${newEventPayload.name}' was added` })
+            .send({ message: `Event '${newEventPayload.name}' was added`, data: data })
             .end();
     } catch (error) {
         res.status(500).send(error).end();
         return console.error(error);
     }
 });
+
+// .send({
+//     message: `Participant: '${registrationPayload.first_name} ${registrationPayload.last_name}' was added`,
+//     data: data,
+// })
 
 router.delete('/events/:id', async (req, res) => {
     let eventIdPayload = req.params;
