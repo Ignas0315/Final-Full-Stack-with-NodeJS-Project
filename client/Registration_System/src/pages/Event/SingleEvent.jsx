@@ -88,7 +88,7 @@ const SingleEvent = () => {
             setEventParticipants((prev) => [
                 ...prev,
                 {
-                    id: body.id,
+                    id: response.data.data.insertId,
                     first_name: body.firstName,
                     last_name: body.lastName,
                     dob: new Date(body.dob).toISOString().substring(0, 10),
