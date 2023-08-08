@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 const HomeCard = (data, type) => {
     const theme = useTheme();
     const navigate = useNavigate();
-    console.log(data);
 
     const card = (data) => {};
     return (

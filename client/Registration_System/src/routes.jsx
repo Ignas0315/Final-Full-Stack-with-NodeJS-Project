@@ -7,6 +7,7 @@ import Participants from './pages/Participants/Participants';
 import Admin from './pages/Admin/Admin';
 import SingleEvent from './pages/Event/SingleEvent';
 import EventsManagement from './pages/EventsManagement/EventsManagement';
+import React from 'react';
 
 export const routes = createBrowserRouter([
     {

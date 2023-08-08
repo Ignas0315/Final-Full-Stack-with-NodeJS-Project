@@ -11,6 +11,7 @@ import {
 import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import React from 'react';
 
 const EditParticipantDialog = ({ selectedRow, open, onClose, onSaveEdit, loading }) => {
     const [firstName, setFirstName] = useState('');

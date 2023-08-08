@@ -10,6 +10,7 @@ import {
 
 import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 const EditEventDialog = ({ selectedRow, open, onClose, onSaveEdit, loading }) => {
     const [name, setName] = useState('');

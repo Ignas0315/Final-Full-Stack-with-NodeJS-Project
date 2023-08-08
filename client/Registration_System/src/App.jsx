@@ -5,6 +5,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { themeSettings } from './themes';
 import { useSelector } from 'react-redux';
+import React from 'react';
 
 // const App = () => {
 //     return <></>;

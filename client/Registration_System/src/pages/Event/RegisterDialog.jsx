@@ -11,6 +11,7 @@ import {
 import { DatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import React from 'react';
 
 const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
     const [firstName, setFirstName] = useState('');
