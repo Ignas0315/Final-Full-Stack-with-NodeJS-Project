@@ -8,6 +8,7 @@ import Admin from './pages/Admin/Admin';
 import SingleEvent from './pages/Event/SingleEvent';
 import EventsManagement from './pages/EventsManagement/EventsManagement';
 import React from 'react';
+import Records from './pages/Records/Records';
 
 export const routes = createBrowserRouter([
     {
@@ -37,7 +38,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/records',
-                element: <Participants />,
+                element: <Records />,
             },
             {
                 path: '/admin',
