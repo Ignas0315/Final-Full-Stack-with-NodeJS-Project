@@ -1,4 +1,14 @@
-import { Box, Button, Card, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
+import {
+    Box,
+    Button,
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
+    Typography,
+    useMediaQuery,
+    useTheme,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +23,8 @@ const Events = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const mobileConstraint = useMediaQuery('(min-width: 600px)');
 
     const getEvents = async () => {
         try {
@@ -78,41 +90,44 @@ const Events = () => {
                         backgroundImage: 'none',
                         backgroundColor: theme.palette.background.alt,
                         width: '100%',
+                        height: '100%',
                     }}
                     onClick={() => navigate(`/event-page/${eventData.id}`)}
                 >
-                    <CardMedia
-                        component='img'
-                        alt='event_picture'
-                        height='140'
-                        image={eventData.image}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant='h5' component='div'>
-                            {eventData.name}
-                        </Typography>
-                        <Typography variant='body2' color='text.secondary'>
-                            {eventData.description}
-                        </Typography>
-                        <Box mt='4px'>
-                            <FlexBetween>
-                                <Typography
-                                    fontWeight='bold'
-                                    variant='body2'
-                                    color='text.secondary'
-                                >
-                                    {eventData.city}, {eventData.country}
-                                </Typography>
-                                <Typography
-                                    fontWeight='bold'
-                                    variant='body2'
-                                    color='text.secondary'
-                                >
-                                    {eventData.date}
-                                </Typography>
-                            </FlexBetween>
-                        </Box>
-                    </CardContent>
+                    <CardActionArea>
+                        <CardMedia
+                            component='img'
+                            alt='event_picture'
+                            height='140'
+                            image={eventData.image}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant='h5' component='div'>
+                                {eventData.name}
+                            </Typography>
+                            <Typography variant='body2' color='text.secondary'>
+                                {eventData.description}
+                            </Typography>
+                            <Box mt='4px'>
+                                <FlexBetween>
+                                    <Typography
+                                        fontWeight='bold'
+                                        variant='body2'
+                                        color='text.secondary'
+                                    >
+                                        {eventData.city}, {eventData.country}
+                                    </Typography>
+                                    <Typography
+                                        fontWeight='bold'
+                                        variant='body2'
+                                        color='text.secondary'
+                                    >
+                                        {eventData.date}
+                                    </Typography>
+                                </FlexBetween>
+                            </Box>
+                        </CardContent>
+                    </CardActionArea>
                 </Card>
             </>
         );
@@ -124,9 +139,9 @@ const Events = () => {
             <Box m='1.5rem 2.5rem'>
                 <FlexBetween>
                     <Header title='Events' subtitle='View and Manage Events' />
-                    <Box>
+                    <Box display={mobileConstraint ? 'flex' : 'block'} textAlign='right'>
                         <Button
-                            sx={{ mr: '8px' }}
+                            sx={mobileConstraint ? { mr: '8px' } : { mr: '0px', mb: '8px' }}
                             variant='contained'
                             size='medium'
                             onClick={() => setIsDialogOpen(true)}
