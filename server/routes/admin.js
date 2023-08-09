@@ -131,7 +131,7 @@ router.patch('/admin/:id', async (req, res) => {
 
         const encryptedPassword = await bcrypt.hashSync(dataPayload.password, 10);
 
-        await pool.execute(
+        const data = await pool.execute(
             `
         UPDATE final.admin SET email = ?, password = ?, first_name=?, last_name=? WHERE id = ?`,
             [
@@ -143,8 +143,17 @@ router.patch('/admin/:id', async (req, res) => {
             ]
         );
 
-        return res.status(201).send(`Admin with id:${adminIdPayload.id} was updated`);
+        console.log(createdAt);
+
+        return res
+            .status(201)
+            .send({
+                message: `Admin with id:${adminIdPayload.id} was updated`,
+                data: data,
+            })
+            .end();
     } catch (error) {
+        console.log(error);
         res.status(500).send(error).end();
         return console.error(error);
     }
@@ -167,7 +176,7 @@ router.post('/admin/register', async (req, res) => {
         if (duplicateCheck.length > 0) {
             return res.status(400).send({ err: 'User already exists. Please try different email' });
         }
-        await pool.execute(
+        const data = await pool.execute(
             `
             INSERT INTO final.admin (email,password,first_name,last_name) VALUES (?,?,?,?)`,
             [
@@ -178,7 +187,16 @@ router.post('/admin/register', async (req, res) => {
             ]
         );
 
-        return res.status(201).send({ message: 'Registered' }).end();
+        const createdAt = await pool.execute(
+            `
+            SELECT created_at FROM final.admin WHERE id= (?)`,
+            [data[0].insertId]
+        );
+
+        return res
+            .status(201)
+            .send({ message: 'Registered', data: data, timestamp: createdAt })
+            .end();
     } catch (error) {
         res.status(500).send(error).end();
         return console.error(error);

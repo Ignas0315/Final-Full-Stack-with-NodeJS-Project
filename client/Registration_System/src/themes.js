@@ -28,6 +28,7 @@ export const themeSettings = (mode) => {
                           ...tokensDark.primary,
                           main: tokensDark.primary[400],
                           light: tokensDark.primary[400],
+                          inner: tokensDark.grey[100],
                       },
                       secondary: {
                           ...tokensDark.secondary,
@@ -41,6 +42,7 @@ export const themeSettings = (mode) => {
                           default: tokensDark.primary[600],
                           alt: tokensDark.primary[500],
                           very: tokensDark.primary[600],
+                          disabled: tokensDark.grey[300],
                       },
                   }
                 : {
