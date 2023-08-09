@@ -13,11 +13,12 @@ import {
     TableRow,
 } from '@mui/material';
 import Header from '../../components/Header/Header';
+import FlexBetween from '../../components/FlexBetween/FlexBetween';
 
 const Admin = () => {
     const theme = useTheme();
     const [isLoading, setIsLoading] = useState(false);
-    const [adminsData, setAdmins] = useState([]);
+    const [adminsData, setAdminsData] = useState([]);
     const [selectedRow, setSelectedRow] = useState('');
     const [currentAdmin, setCurrentAdmin] = useState('');
 
@@ -25,7 +26,7 @@ const Admin = () => {
         try {
             setIsLoading(true);
             const { data } = await getAllAdmins();
-            setAdminData(data);
+            setAdminsData(data);
         } catch (error) {
             setIsLoading(false);
         } finally {
@@ -57,6 +58,8 @@ const Admin = () => {
         retrieveCurrentAdmin();
     }, []);
 
+    console.log(adminsData);
+
     const adminTable = (entries) => {
         return (
             <>
@@ -68,6 +71,7 @@ const Admin = () => {
                     <TableCell align='center'>{entries.id}</TableCell>
                     <TableCell align='center'>{entries.first_name}</TableCell>
                     <TableCell align='center'>{entries.last_name}</TableCell>
+                    <TableCell align='center'>{entries.email}</TableCell>
                     <TableCell align='center'>{entries.created_at}</TableCell>
                     <TableCell align='center'>
                         <Button
@@ -96,7 +100,12 @@ const Admin = () => {
     return (
         <>
             <Box m='1.5rem 2.5rem'>
-                <Header title='Admin' subtitle='View All Admins' />
+                <FlexBetween>
+                    <Header title='Admin' subtitle='View All Admins' />
+                    <Button variant='contained' size='medium' onClick={() => setIsDialogOpen(true)}>
+                        Create New Admin
+                    </Button>
+                </FlexBetween>
                 <Box>
                     {isLoading ? (
                         <Box>Loading...</Box>
@@ -119,6 +128,9 @@ const Admin = () => {
                                         </TableCell>
                                         <TableCell sx={{ fontWeight: 'bold' }} align='center'>
                                             Last Name
+                                        </TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }} align='center'>
+                                            Email
                                         </TableCell>
                                         <TableCell sx={{ fontWeight: 'bold' }} align='center'>
                                             Created At
