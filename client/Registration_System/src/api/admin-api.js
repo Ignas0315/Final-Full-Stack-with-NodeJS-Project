@@ -7,7 +7,7 @@ export const getAdminById = async (id) => axios.get(`${baseURL}/admin/${id}`);
 
 export const deleteAdmin = async (id) => await axios.delete(`${baseURL}/admin/${id}`);
 
-export const updateAdmin = async (id) => await axios.patch(`${baseURL}/admin/${id}`);
+export const updateAdmin = async (id, body) => await axios.patch(`${baseURL}/admin/${id}`, body);
 
 export const createNewAdmin = async (body) => await axios.post(`${baseURL}/admin/register`, body);
 

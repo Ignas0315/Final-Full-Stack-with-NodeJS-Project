@@ -1,6 +1,6 @@
 import { useTheme } from '@emotion/react';
 import React, { useEffect, useState } from 'react';
-import { deleteAdmin, getAllAdmins } from '../../api/admin-api';
+import { createNewAdmin, deleteAdmin, getAllAdmins, updateAdmin } from '../../api/admin-api';
 import {
     Box,
     Button,
@@ -11,16 +11,29 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    Tooltip,
 } from '@mui/material';
 import Header from '../../components/Header/Header';
 import FlexBetween from '../../components/FlexBetween/FlexBetween';
+import { useNavigate } from 'react-router-dom';
+import useAdminDetails from '../../hooks/useAdminDetails';
+import CreateNewAdminDialog from './CreateNewAdminDialog';
+import validator from 'validator';
 
 const Admin = () => {
     const theme = useTheme();
     const [isLoading, setIsLoading] = useState(false);
     const [adminsData, setAdminsData] = useState([]);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [dialogType, setDialogType] = useState('');
     const [selectedRow, setSelectedRow] = useState('');
     const [currentAdmin, setCurrentAdmin] = useState('');
+    const [error, setError] = useState('');
+
+    const { adminId } = useAdminDetails();
+    const [selectedRowTimestamp, setSelectedRowTimestamp] = useState('');
+
+    const navigate = useNavigate();
 
     const fetchAllAdmins = async () => {
         try {
@@ -39,12 +52,13 @@ const Admin = () => {
     }, []);
 
     const handleDeleteAdmin = async (id) => {
+        console.log(id);
         setIsLoading(true);
 
         try {
             await deleteAdmin(id);
 
-            setAdmins((prev) => prev.filter((admin) => admin.id !== id));
+            setAdminsData((prev) => prev.filter((admin) => admin.id !== id));
         } catch (err) {
             console.log(err);
         } finally {
@@ -52,13 +66,110 @@ const Admin = () => {
         }
     };
 
-    const retrieveCurrentAdmin = () => {};
+    const handleEditAdmin = async (body) => {
+        console.log('edit');
+        if (body.password === body.repeatPassword) {
+            if (validator.isEmail(body.email)) {
+                if (body.password.length >= 8) {
+                    try {
+                        console.log(body);
+                        const response = await updateAdmin(selectedRow, {
+                            email: body.email,
+                            password: body.password,
+                            first_name: body.firstName,
+                            last_name: body.lastName,
+                        });
 
-    useEffect(() => {
-        retrieveCurrentAdmin();
-    }, []);
+                        let nextList = adminsData.map((x) => {
+                            if (x.id === selectedRow) {
+                                return {
+                                    id: selectedRow,
+                                    email: body.email,
+                                    first_name: body.firstName,
+                                    last_name: body.lastName,
+                                    created_at: selectedRowTimestamp,
+                                };
+                            } else {
+                                return x;
+                            }
+                        });
 
-    console.log(adminsData);
+                        setAdminsData(nextList);
+                        setError('');
+                        setIsDialogOpen(false);
+                    } catch (error) {
+                        console.log(error);
+                    } finally {
+                        setIsLoading(false);
+                    }
+                } else {
+                    setError(`Password must be at least 8 characters long`);
+                }
+            } else {
+                setError(`${body.email} is not a valid email`);
+            }
+        } else {
+            setError('Passwords did not match');
+        }
+    };
+
+    const handleAddNewAdmin = async (body) => {
+        console.log(body);
+        if (body.password === body.repeatPassword) {
+            if (validator.isEmail(body.email)) {
+                if (body.password.length >= 8) {
+                    try {
+                        const response = await createNewAdmin({
+                            email: body.email,
+                            password: body.password,
+                            first_name: body.firstName,
+                            last_name: body.lastName,
+                        });
+
+                        setAdminsData((prev) => [
+                            ...prev,
+                            {
+                                id: response.data.data[0].insertId,
+                                email: body.email,
+                                first_name: body.firstName,
+                                last_name: body.lastName,
+                                created_at: response.data.timestamp[0][0].created_at,
+                            },
+                        ]);
+                        setError('');
+                        setIsDialogOpen(false);
+                    } catch (error) {
+                        console.log(error);
+                    } finally {
+                        setIsLoading(false);
+                    }
+                } else {
+                    setError(`Password must be at least 8 characters long`);
+                }
+            } else {
+                setError(`${body.email} is not a valid email`);
+            }
+        } else {
+            setError('Passwords did not match');
+        }
+    };
+
+    const onDialogClose = () => setIsDialogOpen(false);
+
+    const handleAdminEditDialog = (id, timestamp) => {
+        setIsDialogOpen(true);
+        setSelectedRow(id);
+        setSelectedRowTimestamp(timestamp);
+        setDialogType('edit');
+    };
+
+    const handleOnSave = (body) => {
+        if (dialogType === 'create') {
+            handleAddNewAdmin(body);
+        } else if (dialogType === 'edit') {
+            handleEditAdmin(body);
+        }
+    };
 
     const adminTable = (entries) => {
         return (
@@ -78,20 +189,35 @@ const Admin = () => {
                             sx={{
                                 backgroundColor: theme.palette.background.very,
                             }}
-                            onClick={() => {}}
+                            onClick={() => handleAdminEditDialog(entries.id, entries.created_at)}
                         >
                             Edit
                         </Button>
                     </TableCell>
                     <TableCell align='center'>
-                        <Button
-                            sx={{
-                                backgroundColor: theme.palette.background.very,
-                            }}
-                            onClick={() => handleDeleteAdmin(entries.id)}
-                        >
-                            Delete
-                        </Button>
+                        {Number(adminId) === entries.id ? (
+                            <Tooltip placement='top' title="Can't delete yourself">
+                                <span>
+                                    <Button
+                                        sx={{
+                                            backgroundColor: theme.palette.background.disabled,
+                                        }}
+                                        disabled
+                                    >
+                                        Delete
+                                    </Button>
+                                </span>
+                            </Tooltip>
+                        ) : (
+                            <Button
+                                sx={{
+                                    backgroundColor: theme.palette.background.very,
+                                }}
+                                onClick={() => handleDeleteAdmin(entries.id)}
+                            >
+                                Delete
+                            </Button>
+                        )}
                     </TableCell>
                 </TableRow>
             </>
@@ -102,7 +228,14 @@ const Admin = () => {
             <Box m='1.5rem 2.5rem'>
                 <FlexBetween>
                     <Header title='Admin' subtitle='View All Admins' />
-                    <Button variant='contained' size='medium' onClick={() => setIsDialogOpen(true)}>
+                    <Button
+                        variant='contained'
+                        size='medium'
+                        onClick={() => {
+                            setIsDialogOpen(true);
+                            setDialogType('create');
+                        }}
+                    >
                         Create New Admin
                     </Button>
                 </FlexBetween>
@@ -152,6 +285,17 @@ const Admin = () => {
                         </TableContainer>
                     )}
                 </Box>
+                {isDialogOpen && (
+                    <CreateNewAdminDialog
+                        loading={isLoading}
+                        open={isDialogOpen}
+                        onClose={onDialogClose}
+                        onSave={(body) => handleOnSave(body)}
+                        error={error}
+                        dialogType={dialogType}
+                        selectedRow={selectedRow}
+                    />
+                )}
             </Box>
         </>
     );

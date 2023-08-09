@@ -29,6 +29,7 @@ import {
 import { loggedAdmin } from '../../assets/loggedAdmin';
 import { getAdminById } from '../../api/admin-api';
 import { getCookieValue } from '../../assets/getCookieValue';
+import { logoutHandler } from '../../assets/utility/logoutHandler';
 
 const sidebarItems = [
     {
@@ -81,7 +82,9 @@ export const Sidebar = ({ drawerWidth, sidebarState, setSidebarState, mobileCons
         getCurrentAdmin();
     }, []);
 
-    const handleLogout = () => {
+    const logoutHandler = () => {
+        localStorage.removeItem('token');
+        window.document.cookie = 'id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         navigate(`/login`);
     };
 
@@ -198,7 +201,7 @@ export const Sidebar = ({ drawerWidth, sidebarState, setSidebarState, mobileCons
                                 <Typography fontSize='12px'>{admin.data[0].first_name}</Typography>
                                 <Typography fontSize='12px'>{admin.data[0].last_name}</Typography>
                             </Box>
-                            <IconButton onClick={handleLogout}>
+                            <IconButton onClick={logoutHandler}>
                                 <PowerSettingsNew />
                             </IconButton>
                         </FlexBetween>
