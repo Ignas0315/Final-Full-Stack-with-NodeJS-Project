@@ -55,6 +55,10 @@ export const Navbar = ({ sidebarState, setSidebarState }) => {
         navigate(`/login`);
     };
 
+    const handleAdmin = () => {
+        navigate(`/admin`);
+    };
+
     return admin === null ? (
         <LoopOutlined />
     ) : (
@@ -103,7 +107,7 @@ export const Navbar = ({ sidebarState, setSidebarState }) => {
                             />
                         )}
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={handleAdmin}>
                         <SupervisorAccountIcon
                             sx={{
                                 fontSize: '24px',

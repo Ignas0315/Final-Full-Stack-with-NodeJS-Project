@@ -61,6 +61,7 @@ const Events = () => {
             setEventsList((prev) => [
                 ...prev,
                 {
+                    id: response.data.data[0].insertId,
                     name: body.name,
                     date: new Date(body.date).toISOString().substring(0, 10),
                     description: body.description,
@@ -75,11 +76,6 @@ const Events = () => {
             setIsLoading(false);
         }
     };
-
-    // useEffect(() => {
-    //     const events = filterEv.filter((result) => result.event_name?.toLowerCase().includes(event));
-    //     set
-    // })
 
     const card = (eventData) => {
         return (

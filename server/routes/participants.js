@@ -202,7 +202,6 @@ router.get('/participant-events/:id', async (req, res) => {
         res.status(500).send(error).end();
         return console.error(error);
     }
-    //SELECT DISTINCT(email), event_id FROM final.participants
 });
 
 router.patch('/participants/:id', async (req, res) => {
