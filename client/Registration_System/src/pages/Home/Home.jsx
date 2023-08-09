@@ -127,7 +127,7 @@ const Home = () => {
                                         values={totalRegistrations}
                                         types='Registrations'
                                         icon={<AppRegistration style={{ fontSize: 100 }} />}
-                                        link='/participants'
+                                        link='/records'
                                     />
                                     <HomeCard
                                         values={totalAdmins}
