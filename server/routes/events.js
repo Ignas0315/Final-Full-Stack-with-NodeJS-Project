@@ -170,6 +170,13 @@ router.delete('/events/:id', async (req, res) => {
 
         await pool.execute(
             `
+            DELETE FROM final.participants WHERE event_id = (?)
+        `,
+            [eventIdPayload.id]
+        );
+
+        await pool.execute(
+            `
             DELETE FROM final.events WHERE id = (?)`,
             [eventIdPayload.id]
         );
