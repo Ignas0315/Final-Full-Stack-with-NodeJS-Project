@@ -29,6 +29,7 @@ import { loggedAdmin } from '../../assets/loggedAdmin';
 import { getAdminById } from '../../api/admin-api';
 import { getCookieValue } from '../../assets/getCookieValue';
 import { useNavigate } from 'react-router-dom';
+import { logoutHandler } from '../../assets/utility/logoutHandler';
 
 export const Navbar = ({ sidebarState, setSidebarState }) => {
     const dispatch = useDispatch();
@@ -51,12 +52,14 @@ export const Navbar = ({ sidebarState, setSidebarState }) => {
         getCurrentAdmin();
     }, []);
 
-    const handleLogout = () => {
-        navigate(`/login`);
-    };
-
     const handleAdmin = () => {
         navigate(`/admin`);
+    };
+
+    const logoutHandler = () => {
+        localStorage.removeItem('token');
+        window.document.cookie = 'id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        navigate(`/login`);
     };
 
     return admin === null ? (
@@ -174,7 +177,7 @@ export const Navbar = ({ sidebarState, setSidebarState }) => {
                             onClose={handleClose}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                         >
-                            <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                            <MenuItem onClick={logoutHandler}>Log Out</MenuItem>
                         </Menu>
                     </FlexBetween>
                 </FlexBetween>
