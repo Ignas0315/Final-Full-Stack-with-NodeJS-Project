@@ -10,11 +10,16 @@ import EventsManagement from './pages/EventsManagement/EventsManagement';
 import React from 'react';
 import Records from './pages/Records/Records';
 import PrivateRoutes from './components/PrivateRoutes/PrivateRoutes';
+import NotFound from './pages/NotFound/NotFound';
 
 export const routes = createBrowserRouter([
     {
         path: '/login',
         element: <Login />,
+    },
+    {
+        path: '*',
+        element: <NotFound />,
     },
     {
         path: '/',
