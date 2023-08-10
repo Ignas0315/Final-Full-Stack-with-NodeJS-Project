@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import { AuthContext } from '../../contexts/AuthContext';
+import { jwtDecoder } from '../../assets/utility/decodeJwt';
 
 const Copyright = () => {
     return (
@@ -27,7 +28,6 @@ const Copyright = () => {
 };
 
 const Login = () => {
-    console.log('entered login');
     const navigate = useNavigate();
 
     const { updateAuth } = useContext(AuthContext);
@@ -48,11 +48,13 @@ const Login = () => {
                 if (res.status === 200) {
                     alert('Login successfull');
 
-                    const token = localStorage.setItem('token', res.data.token);
+                    localStorage.setItem('token', res.data.token);
 
                     window.document.cookie = `id=${res.data.id}`;
 
-                    sendTokenToContext(token);
+                    const decodedToken = jwtDecoder(res.data.token);
+
+                    sendTokenToContext(decodedToken.iat);
 
                     navigate('/home');
                 } else {
