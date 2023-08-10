@@ -36,3 +36,28 @@ Example request body:
         }
     ]
 ```
+
+## Admin
+
+### Get all admins in the database
+
+`GET /admin`
+
+**Parameters**
+
+| Name            | Type   | In     | Required | Description   |
+| --------------- | ------ | ------ | -------- | ------------- |
+| `Authorization` | string | header | Yes      | Authorization |
+
+### Request
+
+`GET /admin/:id`
+
+Gets admin by id
+
+**Parameters**
+
+| Name            | Type    | In     | Required | Description        |
+| --------------- | ------- | ------ | -------- | ------------------ |
+| `Authorization` | string  | header | Yes      | Authorization      |
+| `id`            | integer | path   | Yes      | Specifies admin ID |
