@@ -6,6 +6,21 @@
 
 `POST /login`
 
+**Parameters**
+
+| Name       | Type   | In   | Required | Description   |
+| ---------- | ------ | ---- | -------- | ------------- |
+| `email`    | string | body | Yes      | Email Address |
+| `password` | string | body | Yes      | Password      |
+
+Example request body:
+
+```
+{
+    "email": "albin@mail.com",
+    "password": "nvoksandvkonsvlkcndaslkv"
+}
+
 ### Response Example
 
     HTTP/1.1 200 OK
@@ -20,3 +35,4 @@
             "token": "eyJhbGciOi..."
         }
     ]
+```
