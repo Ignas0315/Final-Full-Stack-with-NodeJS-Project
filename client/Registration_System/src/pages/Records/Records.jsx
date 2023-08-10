@@ -18,7 +18,6 @@ const Records = () => {
     const theme = useTheme();
     const [isLoading, setIsLoading] = useState(false);
     const [participantData, setParticipantData] = useState([]);
-    const [selectedRow, setSelectedRow] = useState('');
 
     const getAllRegistrations = async () => {
         try {

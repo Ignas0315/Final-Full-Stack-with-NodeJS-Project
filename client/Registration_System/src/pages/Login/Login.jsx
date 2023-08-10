@@ -1,24 +1,18 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../../api/login-api';
 import {
     Avatar,
     Box,
     Button,
-    Container,
-    Checkbox,
     CssBaseline,
-    FormControlLabel,
     Paper,
     Grid,
     TextField,
-    ThemeProvider,
     Typography,
 } from '@mui/material';
-// import { Copyright } from '@mui/icons-material';
 import { LockOutlined } from '@mui/icons-material';
-import useAdminDetails from '../../hooks/useAdminDetails';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const Copyright = () => {
@@ -36,11 +30,9 @@ const Login = () => {
     console.log('entered login');
     const navigate = useNavigate();
 
-    const { updateAuth, expiry } = useContext(AuthContext);
+    const { updateAuth } = useContext(AuthContext);
 
-    const imagineAPICall = (token) => updateAuth(token);
-
-    const getTimeLeft = () => console.log(expiry - Date.now());
+    const sendTokenToContext = (token) => updateAuth(token);
 
     const [userInput, setUserInput] = useState({
         email: '',
@@ -60,7 +52,7 @@ const Login = () => {
 
                     window.document.cookie = `id=${res.data.id}`;
 
-                    imagineAPICall(token);
+                    sendTokenToContext(token);
 
                     navigate('/home');
                 } else {
@@ -69,10 +61,6 @@ const Login = () => {
             });
 
             if (res.err) throw new Error(res.err);
-
-            // if (pathname === '/home') {
-            //     window.location.reload();
-            // }
         } catch (error) {}
     };
     {

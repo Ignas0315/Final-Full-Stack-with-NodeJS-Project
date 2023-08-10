@@ -1,11 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { Box, useMediaQuery } from '@mui/material';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
-import useAdminDetails from '../../hooks/useAdminDetails';
 
 const PageTemplate = () => {
     //material-ui constrain is 600px

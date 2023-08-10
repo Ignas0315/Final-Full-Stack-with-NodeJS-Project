@@ -16,16 +16,12 @@ import FlexBetween from './../FlexBetween/FlexBetween';
 import {
     DarkModeOutlined,
     LightModeOutlined,
-    ListOutlined,
     LoopOutlined,
-    MenuOpen,
     Search,
     ViewHeadline,
-    ViewSidebarOutlined,
 } from '@mui/icons-material';
 import { setMode } from '../../state/store';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import { loggedAdmin } from '../../assets/loggedAdmin';
 import { getAdminById } from '../../api/admin-api';
 import { getCookieValue } from '../../assets/getCookieValue';
 import { useNavigate } from 'react-router-dom';

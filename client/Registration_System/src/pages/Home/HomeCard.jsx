@@ -1,12 +1,4 @@
-import {
-    Box,
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
-    Typography,
-    useTheme,
-} from '@mui/material';
+import { Box, Card, CardActionArea, CardContent, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +6,6 @@ import { useNavigate } from 'react-router-dom';
 const HomeCard = (data, type) => {
     const theme = useTheme();
     const navigate = useNavigate();
-
-    const card = (data) => {};
     return (
         <>
             {data === null ? (
