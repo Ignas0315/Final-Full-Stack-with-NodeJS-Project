@@ -9,6 +9,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import au from 'date-fns/locale/en-AU';
+import { AuthContextProvider } from './contexts/AuthContext.jsx';
 
 const store = configureStore({
     reducer: {
@@ -18,9 +19,11 @@ const store = configureStore({
 setupListeners(store.dispatch);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={au}>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </LocalizationProvider>
+    <AuthContextProvider>
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={au}>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </LocalizationProvider>
+    </AuthContextProvider>
 );

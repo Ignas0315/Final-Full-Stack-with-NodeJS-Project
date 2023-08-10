@@ -9,6 +9,7 @@ import SingleEvent from './pages/Event/SingleEvent';
 import EventsManagement from './pages/EventsManagement/EventsManagement';
 import React from 'react';
 import Records from './pages/Records/Records';
+import PrivateRoutes from './components/PrivateRoutes/PrivateRoutes';
 
 export const routes = createBrowserRouter([
     {
@@ -17,7 +18,7 @@ export const routes = createBrowserRouter([
     },
     {
         path: '/',
-        element: <PageTemplate />,
+        element: <PrivateRoutes />,
         children: [
             {
                 path: '/',
