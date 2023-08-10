@@ -8,7 +8,6 @@ import { Sidebar } from '../../components/Sidebar/Sidebar';
 import useAdminDetails from '../../hooks/useAdminDetails';
 
 const PageTemplate = () => {
-    console.log('entered page template');
     //material-ui constrain is 600px
     const mobileConstraint = useMediaQuery('(min-width: 600px)');
     const [sidebarState, setSidebarState] = useState(true);
