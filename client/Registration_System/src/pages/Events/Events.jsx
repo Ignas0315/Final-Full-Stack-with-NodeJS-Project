@@ -54,8 +54,6 @@ const Events = () => {
                 image: body.image,
             });
 
-            console.log(response);
-
             setEventsList((prev) => [
                 ...prev,
                 {
@@ -178,13 +176,6 @@ const Events = () => {
                     </Box>
                 )}
             </Box>
-            {/* <Card
-                sx={{
-                    backgroundImage: 'none',
-                    backgroundColor: theme.palette.background.alt,
-                    borderRadius: '0.55rem',
-                }}
-            ></Card> */}
         </>
     );
 };
