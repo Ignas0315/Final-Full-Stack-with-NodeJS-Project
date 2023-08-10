@@ -27,7 +27,6 @@ import EditParticipantDialog from './EditParticipantDialog';
 const SingleEvent = () => {
     const theme = useTheme();
     const { id } = useParams();
-    const { state } = useLocation();
 
     const [eventParticipants, setEventParticipants] = useState([]);
 
@@ -85,9 +84,8 @@ const SingleEvent = () => {
     const onEditDialogClose = () => setIsEditDialogOpen(false);
 
     const handleEditParticipant = async (body) => {
-        console.log('entered edit function');
         try {
-            const response = await updateParticipantDetails(selectedRow, {
+            await updateParticipantDetails(selectedRow, {
                 first_name: body.firstName,
                 last_name: body.lastName,
                 email: body.email,
@@ -109,8 +107,6 @@ const SingleEvent = () => {
                     return x;
                 }
             });
-
-            console.log(nextList);
 
             setEventParticipants(nextList);
         } catch (error) {

@@ -66,13 +66,11 @@ const Admin = () => {
     };
 
     const handleEditAdmin = async (body) => {
-        console.log('edit');
         if (body.password === body.repeatPassword) {
             if (validator.isEmail(body.email)) {
                 if (body.password.length >= 8) {
                     try {
-                        console.log(body);
-                        const response = await updateAdmin(selectedRow, {
+                        await updateAdmin(selectedRow, {
                             email: body.email,
                             password: body.password,
                             first_name: body.firstName,
@@ -113,7 +111,6 @@ const Admin = () => {
     };
 
     const handleAddNewAdmin = async (body) => {
-        console.log(body);
         if (body.password === body.repeatPassword) {
             if (validator.isEmail(body.email)) {
                 if (body.password.length >= 8) {

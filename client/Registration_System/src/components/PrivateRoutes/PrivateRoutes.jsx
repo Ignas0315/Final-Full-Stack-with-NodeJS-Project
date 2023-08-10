@@ -10,7 +10,6 @@ const PrivateRoutes = () => {
     //can check JWT instead of just simple date as in example
 
     const isValidUser = () => {
-        console.log(expiry);
         if (expiry) {
             return true;
         } else {

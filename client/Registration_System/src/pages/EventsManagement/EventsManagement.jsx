@@ -11,17 +11,10 @@ import {
     Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import Header from '../../components/Header/Header';
-import {
-    createNewEvent,
-    deleteEvent,
-    getAllEvents,
-    getEventById,
-    getEventParticipantsByEventId,
-    updateEvent,
-} from '../../api/events-api';
+import { createNewEvent, deleteEvent, getAllEvents, updateEvent } from '../../api/events-api';
 import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import AddEventDialog from '../Events/AddEventDialog';
@@ -29,7 +22,6 @@ import EditEventDialog from './EditEventDialog';
 
 const EventsManagement = () => {
     const theme = useTheme();
-    const { state } = useLocation();
 
     const [eventsList, setEventsList] = useState([]);
 
@@ -75,7 +67,7 @@ const EventsManagement = () => {
 
     const handleEditEvent = async (body) => {
         try {
-            const response = await updateEvent(selectedRow, {
+            await updateEvent(selectedRow, {
                 name: body.name,
                 date: body.date,
                 description: body.description,
@@ -125,8 +117,6 @@ const EventsManagement = () => {
                 country: body.country,
                 image: body.image,
             });
-
-            console.log(response);
 
             setEventsList((prev) => [
                 ...prev,
