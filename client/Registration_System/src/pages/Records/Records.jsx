@@ -57,12 +57,24 @@ const Records = () => {
                         '&:last-child td, &:last-child th': { border: 0 },
                     }}
                 >
-                    <TableCell align='center'>{entries.id}</TableCell>
-                    <TableCell align='center'>{entries.event_id}</TableCell>
-                    <TableCell align='center'>{entries.first_name}</TableCell>
-                    <TableCell align='center'>{entries.last_name}</TableCell>
-                    <TableCell align='center'>{entries.dob}</TableCell>
-                    <TableCell align='center'>{entries.age}</TableCell>
+                    <TableCell key={`id${entries.id}`} align='center'>
+                        {entries.id}
+                    </TableCell>
+                    <TableCell key={`id${entries.event_id}`} align='center'>
+                        {entries.event_id}
+                    </TableCell>
+                    <TableCell key={`id${entries.first_name}`} align='center'>
+                        {entries.first_name}
+                    </TableCell>
+                    <TableCell key={`id${entries.last_name}`} align='center'>
+                        {entries.last_name}
+                    </TableCell>
+                    <TableCell key={`id${entries.dob}`} align='center'>
+                        {entries.dob}
+                    </TableCell>
+                    <TableCell key={`age${entries.age}`} align='center'>
+                        {entries.age}
+                    </TableCell>
                     <TableCell align='center'>
                         <Button
                             sx={{

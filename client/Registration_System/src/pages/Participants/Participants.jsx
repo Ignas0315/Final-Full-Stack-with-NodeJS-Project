@@ -44,11 +44,21 @@ const Participants = () => {
                         '&:last-child td, &:last-child th': { border: 0 },
                     }}
                 >
-                    <TableCell align='center'>{entries.first_name}</TableCell>
-                    <TableCell align='center'>{entries.last_name}</TableCell>
-                    <TableCell align='center'>{entries.email}</TableCell>
-                    <TableCell align='center'>{entries.dob}</TableCell>
-                    <TableCell align='center'>{entries.age}</TableCell>
+                    <TableCell key={`id${entries.first_name}`} align='center'>
+                        {entries.first_name}
+                    </TableCell>
+                    <TableCell key={`id${entries.last_name}`} align='center'>
+                        {entries.last_name}
+                    </TableCell>
+                    <TableCell key={`id${entries.email}`} align='center'>
+                        {entries.email}
+                    </TableCell>
+                    <TableCell key={`id${entries.dob}`} align='center'>
+                        {entries.dob}
+                    </TableCell>
+                    <TableCell key={`id${entries.age}`} align='center'>
+                        {entries.age}
+                    </TableCell>
                 </TableRow>
             </>
         );
