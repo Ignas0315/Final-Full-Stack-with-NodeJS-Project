@@ -7,7 +7,7 @@ const PrivateRoutes = () => {
     const { expiry } = useContext(AuthContext);
 
     const isValidUser = () => {
-        if (expiry < Date.now()) {
+        if (expiry * 1000 > Date.now()) {
             return true;
         } else {
             return false;
