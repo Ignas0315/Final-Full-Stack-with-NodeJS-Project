@@ -29,7 +29,6 @@ import { loggedAdmin } from '../../assets/loggedAdmin';
 import { getAdminById } from '../../api/admin-api';
 import { getCookieValue } from '../../assets/getCookieValue';
 import { useNavigate } from 'react-router-dom';
-import { logoutHandler } from '../../assets/utility/logoutHandler';
 
 export const Navbar = ({ sidebarState, setSidebarState }) => {
     const dispatch = useDispatch();

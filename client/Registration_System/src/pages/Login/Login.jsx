@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../../api/login-api';
@@ -18,6 +18,8 @@ import {
 } from '@mui/material';
 // import { Copyright } from '@mui/icons-material';
 import { LockOutlined } from '@mui/icons-material';
+import useAdminDetails from '../../hooks/useAdminDetails';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Copyright = () => {
     return (
@@ -31,7 +33,14 @@ const Copyright = () => {
 };
 
 const Login = () => {
+    console.log('entered login');
     const navigate = useNavigate();
+
+    const { updateAuth, expiry } = useContext(AuthContext);
+
+    const imagineAPICall = (token) => updateAuth(token);
+
+    const getTimeLeft = () => console.log(expiry - Date.now());
 
     const [userInput, setUserInput] = useState({
         email: '',
@@ -47,11 +56,11 @@ const Login = () => {
                 if (res.status === 200) {
                     alert('Login successfull');
 
-                    console.log(res.data);
-
-                    localStorage.setItem('token', res.data.token);
+                    const token = localStorage.setItem('token', res.data.token);
 
                     window.document.cookie = `id=${res.data.id}`;
+
+                    imagineAPICall(token);
 
                     navigate('/home');
                 } else {
@@ -61,9 +70,9 @@ const Login = () => {
 
             if (res.err) throw new Error(res.err);
 
-            if (pathname === '/home') {
-                window.location.reload();
-            }
+            // if (pathname === '/home') {
+            //     window.location.reload();
+            // }
         } catch (error) {}
     };
     {

@@ -3,6 +3,7 @@ const joi = require('joi');
 const mysql = require('mysql2/promise');
 const DB_CONFIG = require('./../db-config/db-config');
 const calculateAge = require('./../utility/calculateAge');
+const authenticate = require('../middleware/middleware');
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ const idSchema = joi.object({
     id: joi.number().integer().required(),
 });
 
-router.get('/participants/unique', async (_, res) => {
+router.get('/participants/unique', authenticate, async (_, res) => {
     try {
         const [participants] = await pool.execute(`
 
@@ -32,7 +33,7 @@ router.get('/participants/unique', async (_, res) => {
     }
 });
 
-router.get('/participants', async (_, res) => {
+router.get('/participants', authenticate, async (_, res) => {
     try {
         const [eventParticipants] = await pool.execute(`
         SELECT participants.id, participants.first_name, participants.last_name, participants.event_id,
@@ -45,7 +46,7 @@ router.get('/participants', async (_, res) => {
     }
 });
 
-router.get('/participants/:id', async (req, res) => {
+router.get('/participants/:id', authenticate, async (req, res) => {
     participantIdPayload = req.params;
 
     try {
@@ -79,7 +80,7 @@ router.get('/participants/:id', async (req, res) => {
     }
 });
 
-router.post('/participants', async (req, res) => {
+router.post('/participants', authenticate, async (req, res) => {
     let registrationPayload = req.body;
 
     const dobDate = req.body.dob.toLocaleString('lt-LT');
@@ -127,7 +128,7 @@ router.post('/participants', async (req, res) => {
     }
 });
 
-router.delete('/participants/:id', async (req, res) => {
+router.delete('/participants/:id', authenticate, async (req, res) => {
     let participantIdPayload = req.params;
 
     try {
@@ -164,7 +165,7 @@ router.delete('/participants/:id', async (req, res) => {
     }
 });
 
-router.get('/participant-events/:id', async (req, res) => {
+router.get('/participant-events/:id', authenticate, async (req, res) => {
     participantIdPayload = req.params;
 
     try {
@@ -204,7 +205,7 @@ router.get('/participant-events/:id', async (req, res) => {
     }
 });
 
-router.patch('/participants/:id', async (req, res) => {
+router.patch('/participants/:id', authenticate, async (req, res) => {
     participantIdPayload = req.params;
     participantUpdatePayload = req.body;
 
@@ -223,6 +224,8 @@ router.patch('/participants/:id', async (req, res) => {
     } catch (error) {
         return res.status(400).send({ error: error.message }).end();
     }
+
+    console.log('aa');
 
     try {
         const [idCheck] = await pool.execute(
@@ -277,20 +280,5 @@ router.patch('/participants/:id', async (req, res) => {
         return res.status(500).send({ error: error.message }).end();
     }
 });
-
-// event_id: joi.number().integer().required(),
-// first_name: joi.string().trim().required(),
-// last_name: joi.string().trim().required(),
-// email: joi.string().email().trim().required(),
-// dob: joi.date().required(),
-
-// [
-//     registrationPayload.event_id,
-//     registrationPayload.first_name,
-//     registrationPayload.last_name,
-//     registrationPayload.email,
-//     registrationPayload.dob,
-//     calculateAge(dobDate),
-// ]
 
 module.exports = router;

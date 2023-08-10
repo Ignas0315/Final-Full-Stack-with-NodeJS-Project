@@ -5,7 +5,7 @@ const useAdminDetails = () => {
     const [adminId, setAdminId] = useState('');
 
     const adminStatus = () => {
-        const token = window.localStorage.getItem('token');
+        const token = localStorage.getItem('token');
         const retrievedId = document.cookie.split('=')[1];
 
         if (token) {
