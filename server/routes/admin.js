@@ -3,6 +3,7 @@ const joi = require('joi');
 const mysql = require('mysql2/promise');
 const DB_CONFIG = require('./../db-config/db-config');
 const bcrypt = require('bcrypt');
+const authenticate = require('../middleware/middleware');
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ const adminIdSchema = joi.object({
     id: joi.number().integer().required(),
 });
 
-router.get('/admin', async (_, res) => {
+router.get('/admin', authenticate, async (_, res) => {
     try {
         const [admins] = await pool.execute(`
         SELECT * FROM final.admin`);
@@ -30,7 +31,7 @@ router.get('/admin', async (_, res) => {
     }
 });
 
-router.get('/admin/:id', async (req, res) => {
+router.get('/admin/:id', authenticate, async (req, res) => {
     let adminIdPayload = req.params;
 
     try {
@@ -61,7 +62,7 @@ router.get('/admin/:id', async (req, res) => {
     }
 });
 
-router.delete('/admin/:id', async (req, res) => {
+router.delete('/admin/:id', authenticate, async (req, res) => {
     let adminIdPayload = req.params;
 
     try {
@@ -98,7 +99,7 @@ router.delete('/admin/:id', async (req, res) => {
     }
 });
 
-router.patch('/admin/:id', async (req, res) => {
+router.patch('/admin/:id', authenticate, async (req, res) => {
     let adminIdPayload = req.params;
     let dataPayload = req.body;
 
@@ -143,8 +144,6 @@ router.patch('/admin/:id', async (req, res) => {
             ]
         );
 
-        console.log(createdAt);
-
         return res
             .status(201)
             .send({
@@ -159,7 +158,7 @@ router.patch('/admin/:id', async (req, res) => {
     }
 });
 
-router.post('/admin/register', async (req, res) => {
+router.post('/admin/register', authenticate, async (req, res) => {
     let newAdminPayload = req.body;
 
     try {

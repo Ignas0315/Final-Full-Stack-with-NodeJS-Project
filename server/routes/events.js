@@ -2,6 +2,7 @@ const express = require('express');
 const joi = require('joi');
 const mysql = require('mysql2/promise');
 const DB_CONFIG = require('./../db-config/db-config');
+const authenticate = require('../middleware/middleware');
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ const idSchema = joi.object({
     id: joi.number().integer().required(),
 });
 
-router.get('/events', async (_, res) => {
+router.get('/events', authenticate, async (_, res) => {
     try {
         const [events] = await pool.execute(`
         SELECT * FROM final.events`);
@@ -31,7 +32,7 @@ router.get('/events', async (_, res) => {
     }
 });
 
-router.get('/events/participants/:id', async (req, res) => {
+router.get('/events/participants/:id', authenticate, async (req, res) => {
     let eventParticipantsIdPayload = req.params;
 
     try {
@@ -71,7 +72,7 @@ router.get('/events/participants/:id', async (req, res) => {
     }
 });
 
-router.get('/events/:id', async (req, res) => {
+router.get('/events/:id', authenticate, async (req, res) => {
     let eventsIdPayload = req.params;
 
     try {
@@ -102,7 +103,7 @@ router.get('/events/:id', async (req, res) => {
     }
 });
 
-router.post('/events', async (req, res) => {
+router.post('/events', authenticate, async (req, res) => {
     let newEventPayload = req.body;
 
     try {
@@ -139,12 +140,7 @@ router.post('/events', async (req, res) => {
     }
 });
 
-// .send({
-//     message: `Participant: '${registrationPayload.first_name} ${registrationPayload.last_name}' was added`,
-//     data: data,
-// })
-
-router.delete('/events/:id', async (req, res) => {
+router.delete('/events/:id', authenticate, async (req, res) => {
     let eventIdPayload = req.params;
 
     try {
@@ -188,7 +184,7 @@ router.delete('/events/:id', async (req, res) => {
     }
 });
 
-router.patch('/events/:id', async (req, res) => {
+router.patch('/events/:id', authenticate, async (req, res) => {
     let eventIdPayload = req.params;
     let dataPayload = req.body;
 
