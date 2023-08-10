@@ -11,7 +11,6 @@ import {
     Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import Header from '../../components/Header/Header';
 import { createNewEvent, deleteEvent, getAllEvents, updateEvent } from '../../api/events-api';
@@ -146,44 +145,44 @@ const EventsManagement = () => {
                     sx={{
                         '&:last-child td, &:last-child th': { border: 0 },
                     }}
-                    key={`${eventData.id}keyp`}
+                    key={`id${eventData.id}keyprow`}
                 >
                     <TableCell
-                        key={`${eventData.id}keypd`}
+                        key={`id${eventData.id}keypd${eventData.id}`}
                         onClick={() => navigate(`/event-page/${eventData.id}`)}
                         align='center'
                     >
                         {eventData.id}
                     </TableCell>
                     <TableCell
-                        key={`${eventData.id}name`}
+                        key={`id${eventData.id}name${eventData.name}`}
                         onClick={() => navigate(`/event-page/${eventData.id}`)}
                         align='center'
                     >
                         {eventData.name}
                     </TableCell>
                     <TableCell
-                        key={`${eventData.id}desc`}
+                        key={`id${eventData.id}desc${eventData.description}`}
                         onClick={() => navigate(`/event-page/${eventData.id}`)}
                         align='center'
                     >
                         {eventData.description}
                     </TableCell>
                     <TableCell
-                        key={`${eventData.id}coun`}
+                        key={`id${eventData.id}coun${eventData.city}${eventData.country}`}
                         onClick={() => navigate(`/event-page/${eventData.id}`)}
                         align='center'
                     >
                         {eventData.city}, {eventData.country}
                     </TableCell>
                     <TableCell
-                        key={`${eventData.id}keydat`}
+                        key={`id${eventData.id}keydat${eventData.date}`}
                         onClick={() => navigate(`/event-page/${eventData.id}`)}
                         align='center'
                     >
                         {eventData.date}
                     </TableCell>
-                    <TableCell key={`${eventData.id}keyed`} align='center'>
+                    <TableCell key={`id${eventData.id}keyed`} align='center'>
                         <Button
                             sx={{
                                 backgroundColor: theme.palette.background.very,
@@ -193,7 +192,7 @@ const EventsManagement = () => {
                             Edit
                         </Button>
                     </TableCell>
-                    <TableCell key={`${eventData.id}keypdel`} align='center'>
+                    <TableCell key={`id${eventData.id}keypdel`} align='center'>
                         <Button
                             sx={{
                                 backgroundColor: theme.palette.background.very,

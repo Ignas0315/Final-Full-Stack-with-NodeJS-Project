@@ -11,7 +11,7 @@ import {
     Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import Header from '../../components/Header/Header';
 import { getEventById, getEventParticipantsByEventId } from '../../api/events-api';
@@ -166,12 +166,42 @@ const SingleEvent = () => {
                         '&:last-child td, &:last-child th': { border: 0 },
                     }}
                 >
-                    <TableCell align='center'>{participantData.id}</TableCell>
-                    <TableCell align='center'>{participantData.first_name}</TableCell>
-                    <TableCell align='center'>{participantData.last_name}</TableCell>
-                    <TableCell align='center'>{participantData.email}</TableCell>
-                    <TableCell align='center'>{participantData.dob}</TableCell>
-                    <TableCell align='center'>{participantData.age}</TableCell>
+                    <TableCell
+                        key={`id${participantData.id}keydat${participantData.id}`}
+                        align='center'
+                    >
+                        {participantData.id}
+                    </TableCell>
+                    <TableCell
+                        key={`id${participantData.id}keydat${participantData.first_name}`}
+                        align='center'
+                    >
+                        {participantData.first_name}
+                    </TableCell>
+                    <TableCell
+                        key={`id${participantData.id}keydat${participantData.last_name}`}
+                        align='center'
+                    >
+                        {participantData.last_name}
+                    </TableCell>
+                    <TableCell
+                        key={`id${participantData.id}keydat${participantData.email}`}
+                        align='center'
+                    >
+                        {participantData.email}
+                    </TableCell>
+                    <TableCell
+                        key={`id${participantData.id}keydat${participantData.dob}`}
+                        align='center'
+                    >
+                        {participantData.dob}
+                    </TableCell>
+                    <TableCell
+                        key={`id${participantData.id}keydat${participantData.age}`}
+                        align='center'
+                    >
+                        {participantData.age}
+                    </TableCell>
                     <TableCell align='center'>
                         <Button
                             sx={{

@@ -27,13 +27,10 @@ const Admin = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [dialogType, setDialogType] = useState('');
     const [selectedRow, setSelectedRow] = useState('');
-    const [currentAdmin, setCurrentAdmin] = useState('');
     const [error, setError] = useState('');
 
     const { adminId } = useAdminDetails();
     const [selectedRowTimestamp, setSelectedRowTimestamp] = useState('');
-
-    const navigate = useNavigate();
 
     const fetchAllAdmins = async () => {
         try {
@@ -178,19 +175,19 @@ const Admin = () => {
                     <TableCell key={`id${entries.id}`} align='center'>
                         {entries.id}
                     </TableCell>
-                    <TableCell key={`first_name-${entries.first_name}`} align='center'>
+                    <TableCell key={`${entries.id}first_name-${entries.first_name}`} align='center'>
                         {entries.first_name}
                     </TableCell>
-                    <TableCell key={`last_name-${entries.last_name}`} align='center'>
+                    <TableCell key={`${entries.id}last_name-${entries.last_name}`} align='center'>
                         {entries.last_name}
                     </TableCell>
-                    <TableCell key={`email-${entries.email}`} align='center'>
+                    <TableCell key={`${entries.id}email-${entries.email}`} align='center'>
                         {entries.email}
                     </TableCell>
-                    <TableCell key={`timestamp-${entries.created_at}`} align='center'>
+                    <TableCell key={`${entries.id}timestamp-${entries.created_at}`} align='center'>
                         {entries.created_at}
                     </TableCell>
-                    <TableCell key={`id${entries.id}-edit`} align='center'>
+                    <TableCell key={`${entries.id}id${entries.id}-edit`} align='center'>
                         <Button
                             sx={{
                                 backgroundColor: theme.palette.background.very,
