@@ -12,7 +12,7 @@ import {
     TableRow,
     useTheme,
 } from '@mui/material';
-import { deleteParticipant, getUniqueParticipants } from '../../api/participants-api';
+import { getUniqueParticipants } from '../../api/participants-api';
 
 const Participants = () => {
     const theme = useTheme();

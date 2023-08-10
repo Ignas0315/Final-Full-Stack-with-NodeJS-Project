@@ -1,24 +1,12 @@
-import {
-    Box,
-    Button,
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
-    Typography,
-    useTheme,
-} from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import Header from '../../components/Header/Header';
 import { getAllEvents } from '../../api/events-api';
 import { getAllParticipantsEntries, getUniqueParticipants } from '../../api/participants-api';
 import { getAllAdmins } from '../../api/admin-api';
 import HomeCard from './HomeCard';
 import { AppRegistration, Diversity1, LocalActivity, ManageAccounts } from '@mui/icons-material';
-import useAdminDetails from '../../hooks/useAdminDetails';
 
 const Home = () => {
     const theme = useTheme();
@@ -38,7 +26,6 @@ const Home = () => {
         } finally {
             setIsLoading(false);
         }
-        // setFilterEv(response.data)
     };
 
     const getTotalRegistrations = async () => {
@@ -51,7 +38,6 @@ const Home = () => {
         } finally {
             setIsLoading(false);
         }
-        // setFilterEv(response.data)
     };
 
     const loadUniqueParticipants = async () => {
