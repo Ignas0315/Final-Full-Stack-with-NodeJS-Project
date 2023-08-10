@@ -18,7 +18,6 @@ const Participants = () => {
     const theme = useTheme();
     const [isLoading, setIsLoading] = useState(false);
     const [participantData, setParticipantData] = useState([]);
-    const [selectedRow, setSelectedRow] = useState('');
 
     const fetchUniqueParticipants = async () => {
         try {
@@ -35,22 +34,6 @@ const Participants = () => {
     useEffect(() => {
         fetchUniqueParticipants();
     }, []);
-
-    console.log(participantData);
-
-    const handleDeleteParticipant = async (id) => {
-        setIsLoading(true);
-
-        try {
-            await deleteParticipant(id);
-
-            setParticipantData((prev) => prev.filter((participant) => participant.id !== id));
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setIsLoading(false);
-        }
-    };
 
     const recordsTable = (entries) => {
         return (

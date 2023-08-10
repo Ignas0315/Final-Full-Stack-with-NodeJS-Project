@@ -18,7 +18,6 @@ const invertColours = (colourTokens) => {
 export const tokensLight = invertColours(tokensDark);
 
 export const themeSettings = (mode) => {
-    console.log(mode);
     return {
         palette: {
             mode: mode,
