@@ -1,1 +1,1 @@
-Don't Copy My Exam Please ;)))
+Database model used for the project
