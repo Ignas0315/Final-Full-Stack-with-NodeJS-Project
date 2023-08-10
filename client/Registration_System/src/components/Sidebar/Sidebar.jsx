@@ -188,16 +188,32 @@ export const Sidebar = ({ drawerWidth, sidebarState, setSidebarState, mobileCons
                                 backgroundColor='#14b8a6'
                                 margin='0 auto'
                                 textAlign='center'
+                                color='#FFFFFF'
                             >
                                 {`${admin.data[0].first_name.slice(
                                     0,
                                     1
                                 )}${admin.data[0].last_name.slice(0, 1)}`}
                             </Box>
-                            <Box>
-                                <Typography fontSize='12px'>{admin.data[0].first_name}</Typography>
-                                <Typography fontSize='12px'>{admin.data[0].last_name}</Typography>
-                            </Box>
+                            {theme.palette.mode === 'dark' ? (
+                                <Box>
+                                    <Typography fontSize='12px'>
+                                        {admin.data[0].first_name}
+                                    </Typography>
+                                    <Typography fontSize='12px'>
+                                        {admin.data[0].last_name}
+                                    </Typography>
+                                </Box>
+                            ) : (
+                                <Box>
+                                    <Typography color='#000000' fontSize='12px'>
+                                        {admin.data[0].first_name}
+                                    </Typography>
+                                    <Typography color='#000000' fontSize='12px'>
+                                        {admin.data[0].last_name}
+                                    </Typography>
+                                </Box>
+                            )}
                             <IconButton onClick={logoutHandler}>
                                 <PowerSettingsNew />
                             </IconButton>
