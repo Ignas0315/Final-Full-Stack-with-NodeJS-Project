@@ -18,6 +18,7 @@ import { getAllParticipantsEntries, getUniqueParticipants } from '../../api/part
 import { getAllAdmins } from '../../api/admin-api';
 import HomeCard from './HomeCard';
 import { AppRegistration, Diversity1, LocalActivity, ManageAccounts } from '@mui/icons-material';
+import useAdminDetails from '../../hooks/useAdminDetails';
 
 const Home = () => {
     const theme = useTheme();

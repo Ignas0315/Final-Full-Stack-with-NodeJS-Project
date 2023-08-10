@@ -209,8 +209,6 @@ router.patch('/participants/:id', authenticate, async (req, res) => {
     participantIdPayload = req.params;
     participantUpdatePayload = req.body;
 
-    console.log('aa');
-
     try {
         participantIdPayload = await idSchema.validateAsync(participantIdPayload);
     } catch (error) {

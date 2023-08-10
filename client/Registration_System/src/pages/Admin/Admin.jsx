@@ -52,7 +52,6 @@ const Admin = () => {
     }, []);
 
     const handleDeleteAdmin = async (id) => {
-        console.log(id);
         setIsLoading(true);
 
         try {
@@ -179,12 +178,22 @@ const Admin = () => {
                         '&:last-child td, &:last-child th': { border: 0 },
                     }}
                 >
-                    <TableCell align='center'>{entries.id}</TableCell>
-                    <TableCell align='center'>{entries.first_name}</TableCell>
-                    <TableCell align='center'>{entries.last_name}</TableCell>
-                    <TableCell align='center'>{entries.email}</TableCell>
-                    <TableCell align='center'>{entries.created_at}</TableCell>
-                    <TableCell align='center'>
+                    <TableCell key={`id${entries.id}`} align='center'>
+                        {entries.id}
+                    </TableCell>
+                    <TableCell key={`first_name-${entries.first_name}`} align='center'>
+                        {entries.first_name}
+                    </TableCell>
+                    <TableCell key={`last_name-${entries.last_name}`} align='center'>
+                        {entries.last_name}
+                    </TableCell>
+                    <TableCell key={`email-${entries.email}`} align='center'>
+                        {entries.email}
+                    </TableCell>
+                    <TableCell key={`timestamp-${entries.created_at}`} align='center'>
+                        {entries.created_at}
+                    </TableCell>
+                    <TableCell key={`id${entries.id}-edit`} align='center'>
                         <Button
                             sx={{
                                 backgroundColor: theme.palette.background.very,
@@ -194,7 +203,7 @@ const Admin = () => {
                             Edit
                         </Button>
                     </TableCell>
-                    <TableCell align='center'>
+                    <TableCell key={`id${entries.id}-delete`} align='center'>
                         {Number(adminId) === entries.id ? (
                             <Tooltip placement='top' title="Can't delete yourself">
                                 <span>
