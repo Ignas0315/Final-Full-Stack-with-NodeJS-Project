@@ -38,19 +38,19 @@
 
 export const tokensDark = {
     grey: {
-        0: '#ffffff', // manually adjusted
-        10: '#f6f6f6', // manually adjusted
-        50: '#f0f0f0', // manually adjusted
+        0: '#ffffff',
+        10: '#f6f6f6',
+        50: '#f0f0f0',
         100: '#e0e0e0',
         200: '#c2c2c2',
         300: '#80808a',
         400: '#858585',
-        500: '#666666',
+        500: '#a2a4a6',
         600: '#525252',
         700: '#3d3d3d',
         800: '#292929',
         900: '#141414',
-        1000: '#000000', // manually adjusted
+        1000: '#000000',
     },
     primary: {
         // blue
@@ -60,21 +60,21 @@ export const tokensDark = {
         400: '#e6edfa',
         500: '#3b82f6',
         600: '#2f68c5',
-        700: '#234e94',
+        700: '#7dafff',
         800: '#183462',
         900: '#0c1a31',
     },
     secondary: {
-        // yellow
+        // white
         50: '#fdfdfd',
         100: '#fdfdfd',
         200: '#fbfbfb',
-        300: '#f8f8f9',
+        300: '#f98f8f9',
         400: '#f6f6f7',
         500: '#f4f4f5',
         600: '#c3c3c4',
         700: '#929293',
-        800: '#878787',
+        800: '#919191',
         900: '#313131',
     },
 };

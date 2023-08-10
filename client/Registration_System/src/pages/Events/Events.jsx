@@ -18,7 +18,6 @@ import AddEventDialog from './AddEventDialog';
 
 const Events = () => {
     const theme = useTheme();
-    // const [filterEv, setFilterEv] = useState([]);
     const [eventsList, setEventsList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -36,7 +35,6 @@ const Events = () => {
         } finally {
             setIsLoading(false);
         }
-        // setFilterEv(response.data)
     };
 
     useEffect(() => {

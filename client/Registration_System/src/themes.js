@@ -47,8 +47,8 @@ export const themeSettings = (mode) => {
                 : {
                       // palette values for light mode
                       primary: {
-                          ...tokensLight.primary,
-                          main: tokensDark.grey[50],
+                          ...tokensLight.grey,
+                          main: tokensDark.grey[600],
                           light: tokensDark.grey[100],
                       },
                       secondary: {
@@ -61,7 +61,7 @@ export const themeSettings = (mode) => {
                           main: tokensDark.grey[500],
                       },
                       background: {
-                          default: tokensDark.grey[0],
+                          default: tokensDark.grey[10],
                           alt: tokensDark.grey[50],
                           very: tokensDark.grey[500],
                       },
