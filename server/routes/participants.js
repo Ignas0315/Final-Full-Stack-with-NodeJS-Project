@@ -251,7 +251,7 @@ router.patch('/participants/:id', authenticate, async (req, res) => {
 
         await pool.execute(
             `
-            UPDATE final.participants SET event_id = ?, first_name = ?, last_name = ?, email = ?, dob = ?, age = ? WHERE id = ?`,
+            UPDATE final.participants SET event_id = ?, first_name = ?, last_name = ?, email = ?, dob = ?, age = ?, phone = ? WHERE id = ?`,
             [
                 participantUpdatePayload.event_id,
                 participantUpdatePayload.first_name,
