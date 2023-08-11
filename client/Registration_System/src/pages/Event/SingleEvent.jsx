@@ -12,7 +12,7 @@ import {
     Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FlexBetween from '../../components/FlexBetween/FlexBetween';
 import Header from '../../components/Header/Header';
 import { getEventById, getEventParticipantsByEventId } from '../../api/events-api';
@@ -27,6 +27,7 @@ import EditParticipantDialog from './EditParticipantDialog';
 
 const SingleEvent = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const { id } = useParams();
 
     const [eventParticipants, setEventParticipants] = useState([]);
@@ -173,42 +174,49 @@ const SingleEvent = () => {
                 >
                     <TableCell
                         key={`id${participantData.id}keydat${participantData.id}`}
+                        onClick={() => navigate(`/participants`)}
                         align='center'
                     >
                         {participantData.id}
                     </TableCell>
                     <TableCell
                         key={`id${participantData.id}keydat${participantData.first_name}`}
+                        onClick={() => navigate(`/participants`)}
                         align='center'
                     >
                         {participantData.first_name}
                     </TableCell>
                     <TableCell
                         key={`id${participantData.id}keydat${participantData.last_name}`}
+                        onClick={() => navigate(`/participants`)}
                         align='center'
                     >
                         {participantData.last_name}
                     </TableCell>
                     <TableCell
                         key={`id${participantData.id}keydat${participantData.email}`}
+                        onClick={() => navigate(`/participants`)}
                         align='center'
                     >
                         {participantData.email}
                     </TableCell>
                     <TableCell
                         key={`id${participantData.id}keydat${participantData.dob}`}
+                        onClick={() => navigate(`/participants`)}
                         align='center'
                     >
                         {participantData.dob}
                     </TableCell>
                     <TableCell
                         key={`id${participantData.id}keydat${participantData.age}`}
+                        onClick={() => navigate(`/participants`)}
                         align='center'
                     >
                         {participantData.age}
                     </TableCell>
                     <TableCell
                         key={`id${participantData.id}keydat${participantData.phone}`}
+                        onClick={() => navigate(`/participants`)}
                         align='center'
                     >
                         {participantData.phone}

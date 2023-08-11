@@ -247,8 +247,6 @@ router.patch('/participants/:id', authenticate, async (req, res) => {
         //     ALTER TABLE final.participants DROP CONSTRAINT UQ_Email_Event
         // `);
 
-        console.log(calculateAge(dobDate));
-
         await pool.execute(
             `
             UPDATE final.participants SET event_id = ?, first_name = ?, last_name = ?, email = ?, dob = ?, age = ?, phone = ? WHERE id = ?`,
@@ -263,8 +261,6 @@ router.patch('/participants/:id', authenticate, async (req, res) => {
                 participantIdPayload.id,
             ]
         );
-
-        console.log('pass');
 
         // await pool.execute(`
         //     ALTER TABLE final.participants ADD CONSTRAINT UQ_Email_Event UNIQUE(email,event_id);
