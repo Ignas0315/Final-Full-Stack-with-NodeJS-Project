@@ -9,12 +9,16 @@ const router = express.Router();
 
 const pool = mysql.createPool(DB_CONFIG);
 
+const phoneRegexExpression =
+    /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]‌​)\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)([2-9]1[02-9]‌​|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})\s*(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+)\s*)?$/i;
+
 const participantSchema = joi.object({
     event_id: joi.number().integer().required(),
     first_name: joi.string().trim().required(),
     last_name: joi.string().trim().required(),
     email: joi.string().email().trim().required(),
     dob: joi.date().required(),
+    phone: joi.string().regex(RegExp(phoneRegexExpression)).required(),
 });
 
 const idSchema = joi.object({
@@ -25,7 +29,7 @@ router.get('/participants/unique', authenticate, async (_, res) => {
     try {
         const [participants] = await pool.execute(`
 
-        SELECT DISTINCT(email), first_name, last_name, dob, age FROM final.participants`);
+        SELECT DISTINCT(email), first_name, last_name, dob, age, phone FROM final.participants`);
 
         return res.status(200).send(participants).end();
     } catch (error) {
@@ -37,7 +41,7 @@ router.get('/participants', authenticate, async (_, res) => {
     try {
         const [eventParticipants] = await pool.execute(`
         SELECT participants.id, participants.first_name, participants.last_name, participants.event_id,
-        participants.email, participants.age, participants.dob, events.name FROM
+        participants.email, participants.age, participants.dob, participants.phone, events.name FROM
         final.participants INNER JOIN final.events ON participants.event_id = events.id`);
 
         return res.status(200).send(eventParticipants).end();
@@ -63,7 +67,7 @@ router.get('/participants/:id', authenticate, async (req, res) => {
         const [participant] = await pool.execute(
             `
         SELECT participants.id, participants.first_name, participants.last_name, participants.event_id,
-        participants.email, participants.age, participants.dob, events.name FROM
+        participants.email, participants.age, participants.phone, participants.dob, events.name FROM
         final.participants INNER JOIN final.events ON participants.event_id = events.id
         WHERE participants.id = (?)`,
             [participantIdPayload.id]
@@ -94,8 +98,8 @@ router.post('/participants', authenticate, async (req, res) => {
     try {
         const [data] = await pool.execute(
             `
-        INSERT INTO final.participants (event_id, first_name, last_name, email, dob, age)
-        VALUES (?,?,?,?,?,?);
+        INSERT INTO final.participants (event_id, first_name, last_name, email, dob, age, phone)
+        VALUES (?,?,?,?,?,?,?);
         `,
             [
                 registrationPayload.event_id,
@@ -104,6 +108,7 @@ router.post('/participants', authenticate, async (req, res) => {
                 registrationPayload.email,
                 registrationPayload.dob,
                 calculateAge(dobDate),
+                registrationPayload.phone,
             ]
         );
 
@@ -225,8 +230,6 @@ router.patch('/participants/:id', authenticate, async (req, res) => {
         return res.status(400).send({ error: error.message }).end();
     }
 
-    console.log('aa');
-
     try {
         const [idCheck] = await pool.execute(
             `
@@ -256,6 +259,7 @@ router.patch('/participants/:id', authenticate, async (req, res) => {
                 participantUpdatePayload.email,
                 participantUpdatePayload.dob,
                 calculateAge(dobDate),
+                participantUpdatePayload.phone,
                 participantIdPayload.id,
             ]
         );

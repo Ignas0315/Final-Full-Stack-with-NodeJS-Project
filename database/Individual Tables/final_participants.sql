@@ -32,10 +32,11 @@ CREATE TABLE `participants` (
   `email` varchar(255) NOT NULL,
   `dob` date NOT NULL,
   `age` varchar(45) NOT NULL,
+  `phone` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_participants_events_idx` (`event_id`),
   CONSTRAINT `fk_participants_events` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +45,7 @@ CREATE TABLE `participants` (
 
 LOCK TABLES `participants` WRITE;
 /*!40000 ALTER TABLE `participants` DISABLE KEYS */;
-INSERT INTO `participants` VALUES (1,3,'Katinas','Lūškis','katinaslus@mail.com','2011-03-24','12'),(16,3,'Rain','Lūškis','rainboxcaat@mail.com','2010-03-24','13'),(41,3,'Ignas','Žakaitis','ignaszakaitis@gmail.com','1996-03-15','27'),(42,5,'Katinas','Lūškis','katinaslus@mail.com','2011-03-24','12'),(46,28,'Eliud','Kipchoge','eliud@kipchoges.com','1984-11-05','38'),(48,6,'Christoph','Schneider','christoph@schneider.de','1966-05-11','57'),(49,6,'Richard Z.','Kruspe','richard@kruspe.de','1967-06-24','56'),(50,6,'Slavoj','Žižek','slavoj@zizek.com','1949-03-31','74'),(51,28,'Haruki','Murakami','haruki@murakami.com','1949-01-12','74'),(52,28,'Ignas','Žakaitis','ignaszakaitis@gmail.com','1996-03-15','27'),(53,4,'Corey','Taylor','corey@slipknot.com','1973-12-08','49'),(54,27,'Ignas','Žakaitis','ignaszakaitis@gmail.com','1996-03-15','27'),(55,4,'Katinas','Herkulis','herkulis@cat.com','2012-03-22','11');
+INSERT INTO `participants` VALUES (57,3,'Ignas','Žakaitis','ignaszakaitis@gmail.com','1996-03-15','27','+37063818655'),(58,1,'Katinas','Lūškis','katinas@luskis.com','2011-06-09','12','+37065446975'),(59,1,'Herkulis','Katinauskas','herkulis@cat.com','2012-03-15','11','+37063818611'),(60,34,'Ignas','Žakaitis','ignaszakaitis@gmail.com','1996-03-15','27','+37063818655'),(61,33,'Hans','Muller','hans@muller.com','1979-08-16','43','+49 7802 931 4892');
 /*!40000 ALTER TABLE `participants` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-10 20:57:25
+-- Dump completed on 2023-08-11 14:27:35

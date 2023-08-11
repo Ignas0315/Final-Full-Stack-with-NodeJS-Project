@@ -128,8 +128,6 @@ router.post('/events', authenticate, async (req, res) => {
             ]
         );
 
-        //https://cdn-az.allevents.in/events1/banners/5baafa04f21c267a500edc275f2cda47c2f43fb829d43dec1ee3c26195aef948-rimg-w960-h503-gmir.jpg?v=1690563335
-
         return res
             .status(201)
             .send({ message: `Event '${newEventPayload.name}' was added`, data: data })
@@ -216,8 +214,6 @@ router.patch('/events/:id', authenticate, async (req, res) => {
         }
 
         const eventDate = dataPayload.date.toLocaleString('lt-LT');
-
-        console.log(dataPayload);
 
         await pool.execute(
             `

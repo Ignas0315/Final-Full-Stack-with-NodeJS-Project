@@ -10,7 +10,6 @@ import {
 
 import { DatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import React from 'react';
 
 const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
@@ -19,7 +18,7 @@ const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
     const [email, setEmail] = useState('');
     const [dob, setDob] = useState(new Date());
     const [age, setAge] = useState('');
-    const [partId, setPartId] = useState('');
+    const [phone, setPhone] = useState('');
 
     const calculateAge = (dob) => {
         const currentDate = Date.now();
@@ -68,6 +67,13 @@ const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
                         disabled={loading}
                         onChange={(e) => setEmail(e.target.value)}
                     />
+                    <TextField
+                        fullWidth
+                        label='Phone'
+                        value={phone}
+                        disabled={loading}
+                        onChange={(e) => setPhone(e.target.value)}
+                    />
                 </Stack>
             </DialogContent>
             <DialogActions>
@@ -88,6 +94,7 @@ const AddParticipantDialog = ({ open, onClose, onSave, loading }) => {
                             dob: dob.toISOString().substring(0, 10),
                             email,
                             age,
+                            phone,
                         })
                     }
                 >

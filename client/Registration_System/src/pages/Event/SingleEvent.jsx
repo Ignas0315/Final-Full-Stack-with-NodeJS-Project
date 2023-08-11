@@ -1,6 +1,7 @@
 import {
     Box,
     Button,
+    CardMedia,
     Paper,
     Table,
     TableBody,
@@ -91,6 +92,7 @@ const SingleEvent = () => {
                 email: body.email,
                 dob: body.dob,
                 event_id: id,
+                phone: body.phone,
             });
 
             let nextList = eventParticipants.map((x) => {
@@ -102,6 +104,7 @@ const SingleEvent = () => {
                         dob: new Date(body.dob).toISOString().substring(0, 10),
                         email: body.email,
                         age: body.age,
+                        phone: body.phone,
                     };
                 } else {
                     return x;
@@ -138,6 +141,7 @@ const SingleEvent = () => {
                 email: body.email,
                 dob: body.dob,
                 event_id: id,
+                phone: body.phone,
             });
 
             setEventParticipants((prev) => [
@@ -149,6 +153,7 @@ const SingleEvent = () => {
                     dob: new Date(body.dob).toISOString().substring(0, 10),
                     email: body.email,
                     age: body.age,
+                    phone: body.phone,
                 },
             ]);
         } catch (error) {
@@ -201,6 +206,12 @@ const SingleEvent = () => {
                         align='center'
                     >
                         {participantData.age}
+                    </TableCell>
+                    <TableCell
+                        key={`id${participantData.id}keydat${participantData.phone}`}
+                        align='center'
+                    >
+                        {participantData.phone}
                     </TableCell>
                     <TableCell align='center'>
                         <Button
@@ -286,6 +297,9 @@ const SingleEvent = () => {
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: 'bold' }} align='center'>
                                         Age
+                                    </TableCell>
+                                    <TableCell sx={{ fontWeight: 'bold' }} align='center'>
+                                        Phone
                                     </TableCell>
                                     <TableCell align='center'></TableCell>
                                     <TableCell align='center'></TableCell>

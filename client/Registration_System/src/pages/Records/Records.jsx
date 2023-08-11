@@ -75,6 +75,9 @@ const Records = () => {
                     <TableCell key={`age${entries.age}`} align='center'>
                         {entries.age}
                     </TableCell>
+                    <TableCell key={`age${entries.phone}`} align='center'>
+                        {entries.phone}
+                    </TableCell>
                     <TableCell align='center'>
                         <Button
                             sx={{
@@ -127,6 +130,9 @@ const Records = () => {
                                         </TableCell>
                                         <TableCell sx={{ fontWeight: 'bold' }} align='center'>
                                             Age
+                                        </TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }} align='center'>
+                                            Phone
                                         </TableCell>
                                         <TableCell
                                             sx={{ fontWeight: 'bold' }}
