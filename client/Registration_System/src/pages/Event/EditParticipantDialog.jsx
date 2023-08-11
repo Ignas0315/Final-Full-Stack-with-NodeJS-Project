@@ -41,6 +41,7 @@ const EditParticipantDialog = ({ selectedRow, open, onClose, onSaveEdit, loading
             dob: dob.toISOString().substring(0, 10),
             email,
             age,
+            phone,
         });
     };
 
