@@ -66,6 +66,7 @@ const Events = () => {
                     image: body.image,
                 },
             ]);
+            setIsDialogOpen(false);
         } catch (error) {
             console.log(error);
         } finally {

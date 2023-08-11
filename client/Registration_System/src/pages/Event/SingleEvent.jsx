@@ -113,6 +113,7 @@ const SingleEvent = () => {
             });
 
             setEventParticipants(nextList);
+            setIsEditDialogOpen(false);
         } catch (error) {
             console.log(error);
         } finally {
@@ -157,6 +158,7 @@ const SingleEvent = () => {
                     phone: body.phone,
                 },
             ]);
+            setIsDialogOpen(false);
         } catch (error) {
             console.log(error);
         } finally {

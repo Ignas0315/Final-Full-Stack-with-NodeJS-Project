@@ -92,6 +92,7 @@ const EventsManagement = () => {
             });
 
             setEventsList(nextList);
+            setIsEditDialogOpen(false);
         } catch (error) {
             console.log(error);
         } finally {
@@ -129,6 +130,7 @@ const EventsManagement = () => {
                     image: body.image,
                 },
             ]);
+            setIsDialogOpen(false);
         } catch (error) {
             console.log(error);
         } finally {
