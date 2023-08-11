@@ -1,4 +1,4 @@
-Baigiamasis projektas
+# Baigiamasis projektas
 
 Šios projekto metu reikės sukurti programą naudojant React, NodeJS Express ir MongoDB arba MySQL. Programos tikslas - leisti renginių organizavimu užsiimančiai įmonei, registruoti telefonu paskambinusius asmenis į renginį.
 
@@ -8,7 +8,7 @@ Registracijos formą (joje nurodoma: i) vardas ir pavardė; ii) el.paštas; iii)
 
 Užsiregistravusių vartotojų sąrašą (nurodoma lentelė su vartotojo vardu ir pavarde, el. paštu, gimimo data, administravimo mygtukais).
 
-Funkcionalumas:
+## Funkcionalumas:
 
 CRUD operacijos (registracijos formoje galima sukurti vartotoją, lentelėje matyti, atnaujinti ir ištrinti vartotojus);
 
