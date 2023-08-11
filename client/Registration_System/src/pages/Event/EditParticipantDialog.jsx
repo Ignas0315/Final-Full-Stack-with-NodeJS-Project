@@ -9,8 +9,7 @@ import {
 } from '@mui/material';
 
 import { DatePicker } from '@mui/x-date-pickers';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import React from 'react';
 
 const EditParticipantDialog = ({ selectedRow, open, onClose, onSaveEdit, loading }) => {
@@ -19,7 +18,7 @@ const EditParticipantDialog = ({ selectedRow, open, onClose, onSaveEdit, loading
     const [email, setEmail] = useState('');
     const [dob, setDob] = useState(new Date());
     const [age, setAge] = useState('');
-    const [partId, setPartId] = useState('');
+    const [phone, setPhone] = useState('');
 
     const calculateAge = (dob) => {
         const currentDate = Date.now();
@@ -77,6 +76,13 @@ const EditParticipantDialog = ({ selectedRow, open, onClose, onSaveEdit, loading
                         type='email'
                         disabled={loading}
                         onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                        fullWidth
+                        label='Phone'
+                        value={phone}
+                        disabled={loading}
+                        onChange={(e) => setPhone(e.target.value)}
                     />
                 </Stack>
             </DialogContent>

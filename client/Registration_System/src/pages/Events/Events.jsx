@@ -145,7 +145,7 @@ const Events = () => {
                             size='medium'
                             onClick={() => navigate(`/events/configuration`)}
                         >
-                            Configuration
+                            Management
                         </Button>
                     </Box>
                 </FlexBetween>
